@@ -1,116 +1,249 @@
-<!DOCTYPE html>
-<html lang="ha">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#071e49">
-<title>SciencePro</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#1769e0">
+<title>SciencePro — Learn, Meet, Grow</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#eef3fc;color:#132344}
-header{background:#071e49;color:white;padding:25px 18px;border-radius:0 0 25px 25px}header h1{margin:0 0 8px;font-size:29px}header p{margin:0;color:#d7e5ff}
-main{padding:18px;max-width:650px;margin:auto}.welcome,.section,.quiz-box,.notes-box,.sp-profile,.sp-plans{background:white;padding:18px;border-radius:18px;margin:18px 0;box-shadow:0 4px 16px #10264c12}
-.progress{height:9px;background:#dce5f2;border-radius:20px;overflow:hidden}.progress div{width:0;height:100%;background:#10b981}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.subject{border:0;border-radius:17px;padding:19px 8px;color:white;font-size:16px;font-weight:bold;min-height:112px;cursor:pointer}.subject span{display:block;font-size:31px;margin-bottom:10px}
-.blue{background:#1688ed}.green{background:#0eae79}.purple{background:#873fe5}.orange{background:#ef8525}.red{background:#ed4262}.teal{background:#079cae}
-h2{font-size:20px}.action{display:block;width:100%;padding:13px;margin-top:10px;border:0;border-radius:10px;background:#eaf1ff;color:#102958;text-align:left;font-size:15px;cursor:pointer}
-button,input,select{font:inherit}button{cursor:pointer}.quiz-box select,.quiz-box button,.notes-box select,.notes-box button{width:100%;padding:13px;margin:7px 0;border-radius:10px;font-size:16px}.quiz-box select,.notes-box select{border:1px solid #ccd5e5;background:white;color:#132344}.quiz-box button,.notes-box button,.sp-profile button,.sp-plan button,.pay-button{border:0;background:#1688ed;color:white;font-weight:bold}.quiz-box .answer{text-align:left;background:#edf3ff;color:#132344;border:1px solid #dce5f2}.answer:disabled{opacity:1}.answer.correct{background:#d8f8e8;border-color:#0eae79}.answer.wrong{background:#ffe1e5;border-color:#ed4262}#quizFeedback{white-space:pre-line;line-height:1.7;font-weight:bold}
-.notes-content,.sp-result{background:#f2f6ff;padding:15px;margin-top:14px;border-radius:12px;line-height:1.8}.notes-content h3{color:#071e49}.sp-profile input,.sp-profile select,#sp-email{display:block;width:100%;padding:13px;margin:8px 0 16px;border:1px solid #ccd5e5;border-radius:10px;background:white;color:#132344}.sp-profile button,.pay-button{width:100%;padding:14px;border-radius:10px;font-size:16px}.sp-profile .sp-secondary{background:#071e49;margin-top:10px}
-.sp-plans{background:#eef3fc}.sp-plan{background:white;padding:20px;border-radius:18px;margin-bottom:15px;border:2px solid transparent;box-shadow:0 4px 12px #10264c12}.sp-plan.selected{border-color:#1687ed}.sp-price{font-size:29px;font-weight:bold;margin:12px 0;color:#071e49}.sp-plan ul{padding-left:20px;line-height:1.9}.sp-plan button{width:100%;padding:14px;border:0;border-radius:12px;background:#1687ed;color:white;font-size:16px;font-weight:bold}#sp-message{display:none;background:#e5f3ff;padding:16px;border-radius:12px;line-height:1.7;overflow-wrap:anywhere}
-footer{text-align:center;color:#62728c;padding:24px;font-size:13px}
+:root{--blue:#1769e0;--deep:#102b55;--bg:#f5f7fb;--ink:#182230;--muted:#718096;--line:#e7ebf3}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,sans-serif;color:var(--ink)}button,input,textarea,select{font:inherit}button{border:0;cursor:pointer;font-weight:700;border-radius:13px;padding:11px 14px}.primary{background:var(--blue);color:white}.soft{background:#eaf1ff;color:#1556b7}.top{padding:15px;background:white;position:sticky;top:0;z-index:3;border-bottom:1px solid var(--line)}.toprow,.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.brand{font-size:24px;font-weight:900;color:var(--deep)}.brand b{color:var(--blue)}.muted{color:var(--muted);font-size:13px}.page{display:none;padding:15px 15px 100px;max-width:850px;margin:auto}.page.active{display:block}.banner{background:linear-gradient(125deg,#1b71e9,#8b50ed);color:white;border-radius:22px;padding:20px;margin-bottom:17px}.banner h2{margin:8px 0}.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.tile,.card,.plan{background:white;border:1px solid var(--line);border-radius:17px;padding:13px;margin:8px 0}.tile{text-align:center;cursor:pointer}.tile .ico{font-size:26px}.tile strong{display:block;font-size:13px;margin-top:5px}.field{width:100%;padding:12px;border:1px solid #d5dce8;border-radius:12px;margin:5px 0 12px;background:white}.titleRow{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}.chatbox{height:240px;overflow:auto;border:1px solid var(--line);background:white;border-radius:14px;padding:10px}.bubble{padding:10px;background:#edf4ff;border-radius:12px;margin:7px 0;white-space:pre-wrap;overflow-wrap:anywhere}.bubble b{display:block;font-size:11px;color:var(--blue)}.bottom{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--line);z-index:8}.nav{display:flex;justify-content:space-around;padding:7px 2px}.nav button{background:transparent;color:#69788d;font-size:10px;padding:6px}.nav button span{display:block;font-size:20px}.nav button.active{color:var(--blue);background:#edf4ff}.notice{background:#fff5dc;padding:11px;border-radius:12px;font-size:12px;margin:10px 0}.planrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}.plan strong{font-size:22px;color:var(--blue)}.answer{display:block;width:100%;text-align:left;margin:7px 0;background:#f0f4fb;color:var(--ink)}.correct{background:#dff8e8!important}.wrong{background:#ffe4e4!important}video{width:100%;background:#111;border-radius:12px;aspect-ratio:4/3}@media(min-width:650px){.page{padding-top:22px}.tiles{grid-template-columns:repeat(3,1fr)}}
+
+/* Gifts, rewards and referral cards */
+#gift-center .card { margin: 16px 0; padding: 18px; border-radius: 18px; background: var(--surface, #fff); box-shadow: 0 8px 26px rgba(16,43,85,.08); }
+#gift-center h3 { margin: 0 0 8px; }
+#gift-center label { display:block; margin:12px 0 6px; font-weight:600; }
+#gift-center input, #gift-center select { width:100%; box-sizing:border-box; padding:12px; border:1px solid #d5dbea; border-radius:10px; font:inherit; margin-bottom:8px; }
+#gift-center .primary, #gift-center .secondary { padding:11px 15px; border:0; border-radius:10px; cursor:pointer; font-weight:700; }
+#gift-center .primary { background:var(--blue, #1769e0); color:white; }
+#gift-center .secondary { background:#e7edfb; color:#102b55; }
+#gift-center .muted, #gift-center .small { color:#68738a; }
+#gift-center .small { font-size:.82rem; }
+#gift-center .stack { display:grid; gap:8px; margin-top:10px; }
+#gift-center .list-item { padding:10px 12px; background:#f4f7fc; border-radius:10px; overflow-wrap:anywhere; }
+#gift-center .list-item small { display:block; color:#68738a; margin-top:4px; }
+#gift-center .invite-code-row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px; background:#f4f7fc; border-radius:12px; }
+#gift-center .stats-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:14px; }
+#gift-center .stat { padding:14px; border-radius:12px; background:#edf3ff; display:flex; flex-direction:column; gap:4px; }
+#gift-center .stat strong { font-size:1.5rem; }
+#gift-center .notice { color:#1769e0; }
+
+#community .card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:15px;margin:12px 0}#community h3{margin:0 0 7px}#community label{display:block;font-weight:650;margin-top:10px}#community .community-list{display:grid;gap:8px;margin-top:10px}#community .community-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;border-radius:12px;background:#f1f5fc;overflow-wrap:anywhere}#community .community-item span{font-weight:800;color:var(--blue)}#community .field{min-width:0}
 </style>
-</head>
-<body>
-<header><h1>🔬 SciencePro</h1><p>Karatu Mai Sauki, Nasara Tabbata!</p></header>
+</head><body>
+<header class="top"><div class="toprow"><div><div class="brand">🔬 Science<b>Pro</b></div><div class="muted">Study • Meet • Share • Achieve</div></div><button class="soft" onclick="toggleLang()" id="langBtn">Hausa / EN</button></div></header>
 <main>
-<section class="welcome"><h2>Barka da zuwa, Dalibi! 👋</h2><p>Ka fara tafiyar samun ilimi a yau.</p><p><b>Ci gaban karatu: <span id="percent">0</span>%</b></p><div class="progress"><div id="bar"></div></div></section>
-<h2>📚 Subjects da Muke Samu</h2>
-<div class="grid">
-<button class="subject green" onclick="openSubject('Mathematics')"><span>∑</span>Mathematics</button>
-<button class="subject blue" onclick="openSubject('Physics')"><span>⚛️</span>Physics</button>
-<button class="subject purple" onclick="openSubject('Chemistry')"><span>🧪</span>Chemistry</button>
-<button class="subject red" onclick="openSubject('Biology')"><span>🧬</span>Biology</button>
-<button class="subject orange" onclick="openSubject('Computer Science')"><span>💻</span>Computer Science</button>
-<button class="subject teal" onclick="openSubject('English')"><span>📖</span>English</button>
-</div>
-<section class="section"><h2>🎯 Kayan Karatu</h2>
-<button class="action" onclick="goTo('scienceNotes')">📒 Karanta Notes</button><button class="action" onclick="goTo('scienceQuiz')">📝 Gwada Kanka (Quizzes)</button><button class="action" onclick="showPage('Exams')">🎓 Jarabawa (Exams)</button><button class="action" onclick="goTo('scienceProProfile')">👤 Rajista / Profile</button><button class="action" onclick="goTo('sciencepro-plans')">💳 Subscription Plans</button></section>
-<section class="section" id="result"><h2 id="pageTitle">Barka da zuwa SciencePro!</h2><p id="message">Zaɓi subject ko kayan karatu domin farawa.</p></section>
+<section id="home" class="page active"><div class="banner"><small>WELCOME TO YOUR LEARNING COMMUNITY</small><h2 id="welcome">Learn together. Shine together.</h2><p>Study, practice exams, earn points and ask your AI tutor.</p><button class="primary" onclick="go('study')">Start learning ↗</button></div><div class="titleRow"><h2>Quick access</h2></div><div class="tiles">
+<div class="tile" onclick="go('study')"><div class="ico">📚</div><strong>Study Hub</strong><small>Notes & lessons</small></div><div class="tile" onclick="go('quiz')"><div class="ico">🧠</div><strong>Quiz Zone</strong><small>Earn points</small></div><div class="tile" onclick="go('ai')"><div class="ico">✨</div><strong>AI Tutor</strong><small>Ask questions</small></div><div class="tile" onclick="go('exam')"><div class="ico">📝</div><strong>AI Exam Lab</strong><small>Results</small></div><div class="tile" onclick="go('meet')"><div class="ico">🎙️</div><strong>Live Chat</strong><small>Study together</small></div><div class="tile" onclick="go('profile')"><div class="ico">🎁</div><strong>Rewards</strong><small>Points & gifts</small></div></div>
+<div class="card"><h3>🎓 Study rooms</h3><p class="muted">Chemistry Corner • Maths Practice • Computer Club • Science Lounge</p><button class="soft" onclick="go('meet')">Join community</button></div></section>
+<section id="study" class="page"><div class="titleRow"><h2>📚 Study Hub</h2><span class="muted">Hausa + English</span></div><div class="tiles" id="subjects"></div><div class="card"><h3 id="lessonTitle">Choose a subject</h3><p id="lessonText" class="muted">Tap a subject to read its starter note.</p><button class="primary" onclick="go('quiz')">Practice quiz</button></div></section>
+<section id="quiz" class="page"><h2>🧠 Quiz Zone</h2><div class="card"><span id="qProgress" class="muted"></span><h3 id="qText"></h3><div id="qOptions"></div><p id="qResult" class="muted"></p><button class="primary" id="qNext" onclick="nextQ()" disabled>Next</button></div></section>
+<section id="exam" class="page"><h2>📝 AI Exam Lab</h2><div class="card"><p class="muted">Generate a practice test through the backend, then submit answers to see your score.</p><label>Subject</label><select id="examSubject" class="field"><option>Mathematics</option><option>Physics</option><option>Chemistry</option><option>Biology</option><option>Computer Science</option><option>English</option></select><label>Class / level</label><input id="examLevel" class="field" placeholder="e.g. SS2 or WAEC"><label>Questions</label><select id="examCount" class="field"><option>5</option><option>10</option><option>20</option></select><button class="primary" id="makeExam">Create AI practice exam</button><p id="examStatus" class="muted">Requires a working exam endpoint in Render.</p><div id="examArea"></div></div></section>
+<section id="ai" class="page"><h2>✨ AI Study Tutor</h2><div class="chatbox" id="aiBox"><div class="bubble"><b>SciencePro AI</b>Sannu! Ask me to explain a topic or help you revise.</div></div><form id="aiForm"><textarea id="aiInput" class="field" rows="2" placeholder="Ask a study question..." required></textarea><button class="primary">Send question</button></form><p id="aiStatus" class="muted">AI needs a working backend endpoint and private API key.</p></section>
+<section id="meet" class="page"><h2>🎙️ Live Chat & Study Rooms</h2><div class="card"><h3>Community tools</h3><p class="muted">Leaderboard, room creation, and student search.</p><button class="primary" onclick="go(&quot;community&quot;)">Open Community Hub</button></div><div class="card"><label>Your display name</label><input id="chatName" class="field" placeholder="Student name"><label>Room</label><input id="chatRoom" class="field" value="sciencepro-lobby"><button class="primary" id="joinChat">Connect to chat</button><p id="chatStatus" class="muted">Not connected</p><div id="chatBox" class="chatbox"></div><form id="chatForm" class="row"><input id="chatInput" class="field" placeholder="Type a message..." required><button class="primary">Send</button></form></div><div class="card"><h3>📹 Video call</h3><p class="muted">Video calling needs signaling events configured in the backend and camera permission.</p><input id="peerId" class="field" placeholder="Friend's temporary Socket ID"><button class="soft" onclick="alert('Video-call signaling must be enabled in the backend before calls can work.')">Call friend</button><div class="notice">This button is a placeholder until backend signaling is confirmed.</div></div></section>
+<section id="inbox" class="page"><h2>📨 Inbox</h2><div class="card"><p>Private inbox and saved chat history require student accounts and a database.</p><button class="primary" onclick="go('meet')">Open live chat</button></div></section>
 
-<section class="quiz-box" id="scienceQuiz"><h2>📝 SciencePro Quizzes</h2><p>Gwada iliminka! / Test your knowledge!</p>
-<label for="quizLevel">Matakin karatu / Level</label><select id="quizLevel"><option value="JSS">JSS 1–3</option><option value="SS">SS 1–3</option><option value="UNI">University</option><option value="ALL">Dukkan matakai / All levels</option></select>
-<label for="quizSubject">Darasi / Subject</label><select id="quizSubject"><option value="All">Dukkan darussa / All subjects</option><option>Mathematics</option><option>Physics</option><option>Chemistry</option><option>Biology</option></select>
-<button onclick="startScienceQuiz()">Fara Quiz / Start Quiz</button>
-<div id="quizGame" hidden><p id="quizNumber"></p><h3 id="quizQuestion"></h3><div id="quizAnswers"></div><p id="quizFeedback" aria-live="polite"></p><button id="quizNext" onclick="nextScienceQuestion()" hidden>Tambaya ta gaba / Next</button></div>
-<div id="quizResult" hidden><h3>🎉 An kammala! / Quiz completed!</h3><p id="quizScore"></p><button onclick="startScienceQuiz()">Sake gwadawa / Try Again</button></div></section>
-
-<section class="notes-box" id="scienceNotes"><h2>📚 SciencePro Notes</h2><p>Karanta ka fahimta / Read and understand.</p>
-<label for="notesSubject">Zaɓi darasi / Choose subject</label><select id="notesSubject"><option>Mathematics</option><option>Physics</option><option>Chemistry</option><option>Biology</option><option>Computer Science</option><option>English</option></select>
-<label for="notesLevel">Matakin karatu / Level</label><select id="notesLevel"><option value="JSS">JSS 1–3</option><option value="SS">SS 1–3</option><option value="UNI">University</option></select>
-<label for="notesTopic">Batun darasi / Topic</label><select id="notesTopic"></select><button onclick="showScienceNotes()">Karanta Notes / Read Notes</button><div id="notesResult" class="notes-content" hidden></div></section>
-
-<section class="sp-profile" id="scienceProProfile"><h2>👤 Student Profile</h2><p>Rajistar ɗalibi / Student registration</p>
-<form id="spRegisterForm"><label for="spName">Cikakken suna / Full name</label><input id="spName" type="text" placeholder="Shigar da sunanka / Enter your name" maxlength="80" required>
-<label for="spProfileEmail">Imel / Email (na zaɓi)</label><input id="spProfileEmail" type="email" placeholder="student@example.com" maxlength="120">
-<label for="spLevel">Matakin karatu / Study level</label><select id="spLevel"><option value="JSS 1–3">JSS 1–3</option><option value="SS 1–3">SS 1–3</option><option value="University">University</option></select><button type="submit">Ajiye Rajista / Save Profile</button></form>
-<div id="spProfileResult" class="sp-result" hidden></div><button type="button" class="sp-secondary" id="spEditButton" hidden>Gyara Bayanan / Edit Profile</button></section>
-
-<section class="sp-plans" id="sciencepro-plans"><h2>💳 SciencePro Plans</h2><p>Zaɓi tsarin karatun da ya dace da kai.<br>Choose the study plan that works for you.</p>
-<div class="sp-plan" data-plan="daily"><h3>📅 Daily Plan</h3><p>Kwana ɗaya / 1 day access</p><div class="sp-price">₦200</div><ul><li>Karanta Notes / Read notes</li><li>Yi quizzes / Take quizzes</li></ul><button type="button" onclick="spChoosePlan('daily')">Zaɓi Plan / Select Plan</button></div>
-<div class="sp-plan" data-plan="weekly"><h3>🗓️ Weekly Plan</h3><p>Kwanaki 7 / 7 days access</p><div class="sp-price">₦1,000</div><ul><li>Notes da quizzes</li><li>Study for 7 days</li></ul><button type="button" onclick="spChoosePlan('weekly')">Zaɓi Plan / Select Plan</button></div>
-<div class="sp-plan" data-plan="monthly"><h3>📚 Monthly Plan</h3><p>Kwanaki 30 / 30 days access</p><div class="sp-price">₦3,000</div><ul><li>Dukkan darussan / All subjects</li><li>Notes da quizzes</li></ul><button type="button" onclick="spChoosePlan('monthly')">Zaɓi Plan / Select Plan</button></div>
-<div class="sp-plan" data-plan="special"><h3>👑 Special Plan</h3><p>Watanni 3 / 3 months access</p><div class="sp-price">₦5,000</div><ul><li>Cikakken damar karatu / Full access</li><li>Notes, quizzes da exams</li></ul><button type="button" onclick="spChoosePlan('special')">Zaɓi Plan / Select Plan</button></div>
-<div id="sp-message" role="status" aria-live="polite"></div><p style="font-size:13px;line-height:1.6">⚠️ Ana amfani da yanayin gwaji har sai an tabbatar da tsarin biyan kuɗi. Kada a yi real payment tukuna.</p>
-<div id="sp-email-area" hidden><label for="sp-pay-email">Email ɗinka / Your payment email</label><input id="sp-pay-email" type="email" placeholder="name@example.com"><button class="pay-button" type="button" onclick="spPayNow()">Ci gaba zuwa Paystack / Continue</button></div>
+<section id="community" class="page">
+<div class="banner"><span>SCIENCEPRO COMMUNITY</span><h2>🏆 Learn together, grow together</h2><p>Find classmates, create study rooms, and see top learners.</p></div>
+<div class="card"><h3>🏆 Top Students Leaderboard</h3><p class="muted">Demo leaderboard on this device. Live rankings need quiz results saved on the backend.</p><div id="sp-leaderboard" class="community-list"></div><div class="row"><input id="leader-name" class="field" placeholder="Student name"><input id="leader-score" class="field" type="number" min="0" max="100" placeholder="Score %"></div><button class="primary" onclick="spAddLeaderboardScore()">Add demo score</button></div>
+<div class="card"><h3>🧑‍🤝‍🧑 Create your own study room</h3><p class="muted">Make a room for classmates to discuss lessons and prepare for exams.</p><label>Room name</label><input id="sp-room-title" class="field" placeholder="e.g. Biology Study Group"><label>Subject</label><select id="sp-room-subject" class="field"><option>General Study</option><option>Mathematics</option><option>Biology</option><option>Chemistry</option><option>Physics</option><option>English</option><option>Exam Preparation</option></select><label>Short description</label><input id="sp-room-description" class="field" placeholder="What will your group study?"><button class="primary" onclick="spCreateRoom()">Create room</button><p id="sp-room-status" class="notice"></p><h4>Study rooms</h4><div id="sp-room-list" class="community-list"></div></div>
+<div class="card"><h3>🔎 Find a student by User ID</h3><p class="muted">Demo search finds IDs saved on this device. Global search requires registered accounts and a backend database.</p><label>Your display name</label><input id="sp-my-username" class="field" placeholder="Your name"><button class="soft" onclick="spSaveMyUser()">Create / show my demo User ID</button><p id="sp-my-userid" class="notice">Your User ID will appear here.</p><label>Search User ID</label><input id="sp-search-user" class="field" placeholder="e.g. SP-123456"><button class="primary" onclick="spSearchUser()">Search student</button><div id="sp-user-result" class="community-list"></div></div>
 </section>
-</main><footer>SciencePro © 2026 — Koyi yau, ka yi nasara gobe!</footer>
-<script>
-"use strict";
-function goTo(id){document.getElementById(id).scrollIntoView({behavior:"smooth",block:"start"});}
-function openSubject(name){document.getElementById("pageTitle").textContent=name;document.getElementById("message").textContent="Ka zaɓi "+name+". Zaɓi Notes ko Quizzes don fara karatu.";goTo("result");}
-function showPage(page){document.getElementById("pageTitle").textContent=page;const messages={Exams:"Sashen jarabawa zai ba ka damar gwada iliminka. Za mu ƙara cikakkun jarabawa nan gaba."};document.getElementById("message").textContent=messages[page]||"Zaɓi wani sashe domin farawa.";goTo("result");}
 
-const scienceQuestions=[
-{level:"JSS",subject:"Mathematics",q:"What is 5 + 7? / Nawa ne 5 + 7?",a:["10","12","13","15"],c:1},
-{level:"JSS",subject:"Biology",q:"Which organ pumps blood? / Wane sashen jiki ne ke tura jini?",a:["Lungs / Huhu","Heart / Zuciya","Brain / Kwakwalwa","Kidney / Koda"],c:1},
-{level:"JSS",subject:"Physics",q:"What is the unit of force? / Menene ma'aunin ƙarfi?",a:["Metre / Mita","Litre / Lita","Newton / Newton","Gram / Gram"],c:2},
-{level:"JSS",subject:"Chemistry",q:"What is the chemical formula of water? / Menene tsarin sinadarin ruwa?",a:["CO2","O2","H2O","NaCl"],c:2},
-{level:"SS",subject:"Mathematics",q:"Solve: 2x + 4 = 10.",a:["x = 2","x = 3","x = 4","x = 7"],c:1},
-{level:"SS",subject:"Biology",q:"Where does photosynthesis occur?",a:["Roots","Chloroplasts","Flowers","Seeds"],c:1},
-{level:"SS",subject:"Physics",q:"What is the SI unit of power?",a:["Joule","Watt","Newton","Pascal"],c:1},
-{level:"SS",subject:"Chemistry",q:"What is the pH of a neutral solution at 25°C?",a:["1","5","7","14"],c:2},
-{level:"UNI",subject:"Mathematics",q:"What is the derivative of x²?",a:["x","2x","x³","2"],c:1},
-{level:"UNI",subject:"Biology",q:"Which molecule carries genetic information?",a:["DNA","Glucose","Water","Starch"],c:0},
-{level:"UNI",subject:"Physics",q:"What is the SI unit of electrical resistance?",a:["Volt","Ampere","Ohm","Watt"],c:2},
-{level:"UNI",subject:"Chemistry",q:"A catalyst increases reaction rate by lowering what?",a:["Temperature","Activation energy","Mass","Volume"],c:1}
-];
-let quizList=[],quizIndex=0,quizPoints=0,quizAnswered=false;
-function startScienceQuiz(){const level=document.getElementById("quizLevel").value,subject=document.getElementById("quizSubject").value;quizList=scienceQuestions.filter(q=>(level==="ALL"||q.level===level)&&(subject==="All"||q.subject===subject));quizIndex=0;quizPoints=0;document.getElementById("quizResult").hidden=true;document.getElementById("quizGame").hidden=false;if(!quizList.length){document.getElementById("quizQuestion").textContent="Babu tambayoyi a wannan zaɓin tukuna. / No questions available.";document.getElementById("quizAnswers").replaceChildren();document.getElementById("quizNumber").textContent="";document.getElementById("quizFeedback").textContent="";document.getElementById("quizNext").hidden=true;return;}showScienceQuestion();}
-function showScienceQuestion(){quizAnswered=false;const q=quizList[quizIndex];document.getElementById("quizNumber").textContent="Tambaya / Question "+(quizIndex+1)+" of "+quizList.length;document.getElementById("quizQuestion").textContent=q.q;document.getElementById("quizFeedback").textContent="";document.getElementById("quizNext").hidden=true;const answers=document.getElementById("quizAnswers");answers.replaceChildren();q.a.forEach((answer,i)=>{const b=document.createElement("button");b.className="answer";b.textContent=answer;b.onclick=()=>checkScienceAnswer(i);answers.appendChild(b);});}
-function checkScienceAnswer(choice){if(quizAnswered)return;quizAnswered=true;const q=quizList[quizIndex];document.querySelectorAll("#quizAnswers button").forEach((b,i)=>{b.disabled=true;if(i===q.c)b.classList.add("correct");if(i===choice&&choice!==q.c)b.classList.add("wrong");});if(choice===q.c){quizPoints++;document.getElementById("quizFeedback").textContent="Daidai! ✓ Correct!";}else{document.getElementById("quizFeedback").textContent="Ba daidai ba. ✗ Incorrect.\nAmsa: "+q.a[q.c];}const next=document.getElementById("quizNext");next.hidden=false;next.textContent=quizIndex===quizList.length-1?"Duba maki / See Result":"Tambaya ta gaba / Next";}
-function nextScienceQuestion(){if(!quizAnswered)return;quizIndex++;if(quizIndex<quizList.length){showScienceQuestion();return;}document.getElementById("quizGame").hidden=true;document.getElementById("quizResult").hidden=false;const percent=Math.round(quizPoints/quizList.length*100);document.getElementById("quizScore").textContent="Maki / Score: "+quizPoints+" / "+quizList.length+"\nSakamako / Result: "+percent+"%";localStorage.setItem("sciencepro_last_quiz_percent",String(percent));document.getElementById("percent").textContent=percent;document.getElementById("bar").style.width=percent+"%";}
+<section id="gift-center" class="page">
+  <div class="hero-card">
+    <span class="eyebrow">SCIENCEPRO COMMUNITY</span>
+    <h2>🎁 Gifts, Rewards & Invites</h2>
+    <p>Share encouragement with classmates, celebrate top students, and invite friends to learn together.</p>
+  </div>
 
-const scienceNotesData={
-Mathematics:{JSS:[{title:"Basic Arithmetic / Lissafi na asali",ha:"Lissafi yana amfani da ƙari (+), ragi (−), ninkawa (×) da rabawa (÷). Misali: 5 + 3 = 8.",en:"Arithmetic uses addition, subtraction, multiplication, and division. Example: 5 + 3 = 8."},{title:"Fractions / Kason lambobi",ha:"Fraction yana nuna wani ɓangare na abu gaba ɗaya. Misali: 1/2 yana nufin rabin abu.",en:"A fraction represents part of a whole. Example: 1/2 means one half."}],SS:[{title:"Algebra",ha:"Algebra yana amfani da haruffa wajen wakiltar lambobi. Misali: idan x + 3 = 7, to x = 4.",en:"Algebra uses letters to represent numbers. If x + 3 = 7, then x = 4."},{title:"Geometry / Siffofi",ha:"Geometry yana nazarin siffofi da kusurwoyi. Jimillar kusurwoyin triangle ita ce 180°.",en:"Geometry studies shapes and angles. The interior angles of a triangle add up to 180°."}],UNI:[{title:"Differentiation / Derivative",ha:"Derivative na x² shi ne 2x.",en:"The derivative of x² is 2x."}]},
-Physics:{JSS:[{title:"Force / Ƙarfi",ha:"Force turawa ne ko jan abu. Ana auna force da Newton (N).",en:"A force is a push or pull. It is measured in newtons (N)."},{title:"Energy / Kuzari",ha:"Energy ita ce ikon yin aiki. Misalai sun haɗa da zafi, haske da motsi.",en:"Energy is the ability to do work. Examples include heat, light, and kinetic energy."}],SS:[{title:"Motion / Motsi",ha:"Speed = nisan da aka yi ÷ lokacin da aka ɗauka.",en:"Speed = distance travelled ÷ time taken."},{title:"Ohm's Law",ha:"Dokar Ohm ita ce V = IR.",en:"Ohm's law is V = IR."}],UNI:[{title:"Newton's Second Law",ha:"Dokar Newton ta biyu: F = ma.",en:"Newton's second law states F = ma."}]},
-Chemistry:{JSS:[{title:"States of Matter",ha:"Manyan yanayi uku su ne solid, liquid da gas.",en:"The three common states of matter are solid, liquid, and gas."},{title:"Elements",ha:"Element abu ne da aka gina daga nau'in atom guda.",en:"An element is a substance made of one type of atom."}],SS:[{title:"Atoms and Molecules",ha:"Atom shi ne ƙaramin ɓangaren element da ke riƙe da halayensa na sinadarai.",en:"An atom is the smallest unit of an element that retains its chemical identity."},{title:"Acids and Bases",ha:"pH ƙasa da 7 acid ne, 7 neutral ne, sama da 7 alkaline ne.",en:"A pH below 7 is acidic, 7 is neutral, and above 7 is alkaline."}],UNI:[{title:"Chemical Equilibrium",ha:"A equilibrium, saurin forward reaction da reverse reaction suna daidaita.",en:"At chemical equilibrium, forward and reverse reaction rates are equal."}]},
-Biology:{JSS:[{title:"Living Things",ha:"Halittu masu rai suna girma, numfashi, samar da zuriya da amsa ga muhalli.",en:"Living things grow, respire, reproduce, and respond to their environment."},{title:"Human Body",ha:"Zuciya tana tura jini; huhu suna taimakawa musayar oxygen da carbon dioxide.",en:"The heart pumps blood; the lungs exchange oxygen and carbon dioxide."}],SS:[{title:"Cell Biology",ha:"Cell shi ne ginshiƙin tsari da aiki na rayayyun halittu.",en:"The cell is the basic structural and functional unit of living organisms."},{title:"Photosynthesis",ha:"Shuke-shuke suna amfani da hasken rana, ruwa da carbon dioxide don samar da glucose.",en:"Plants use sunlight, water, and carbon dioxide to produce glucose."}],UNI:[{title:"Genetics",ha:"Genetics yana nazarin gadon halaye. DNA yana ɗauke da bayanan gado.",en:"Genetics studies inheritance. DNA carries genetic information."}]},
-"Computer Science":{JSS:[{title:"Computer Basics",ha:"Kwamfuta tana karɓar bayanai, sarrafa su, fitar da sakamako da adana bayanai.",en:"A computer accepts input, processes it, produces output, and stores information."}],SS:[{title:"Programming",ha:"Programming shi ne rubuta umarni da kwamfuta za ta bi.",en:"Programming means writing instructions for a computer."}],UNI:[{title:"Algorithms",ha:"Algorithm jerin matakai ne masu tsari don warware matsala.",en:"An algorithm is an ordered set of steps for solving a problem."}]},
-English:{JSS:[{title:"Parts of Speech",ha:"Noun suna ne, verb yana nuna aiki, adjective yana bayyana suna.",en:"A noun names something, a verb expresses action, and an adjective describes a noun."}],SS:[{title:"Grammar",ha:"Subject yana nuna wanda ko abin da ake magana a kai; verb yana nuna aiki ko yanayi.",en:"The subject tells who or what a sentence is about; the verb expresses an action or state."}],UNI:[{title:"Academic Writing",ha:"Rubutun ilimi yana buƙatar tsari, hujjoji da ambaton tushe.",en:"Academic writing requires structure, reliable evidence, and appropriate referencing."}]}
-};
-function updateScienceTopics(){const subject=document.getElementById("notesSubject").value,level=document.getElementById("notesLevel").value,select=document.getElementById("notesTopic"),topics=scienceNotesData[subject]?.[level]||[];select.replaceChildren();topics.forEach((topic,i)=>{const o=document.createElement("option");o.value=String(i);o.textContent=topic.title;select.appendChild(o);});document.getElementById("notesResult").hidden=true;}
-function showScienceNotes(){const subject=document.getElementById("notesSubject").value,level=document.getElementById("notesLevel").value,index=Number(document.getElementById("notesTopic").value),topic=(scienceNotesData[subject]?.[level]||[])[index],result=document.getElementById("notesResult");if(!topic)return;result.replaceChildren();for(const [heading,text] of [["",topic.title],["Hausa",topic.ha],["English",topic.en]]){const el=document.createElement(heading?"p":"h3");if(heading){const strong=document.createElement("strong");strong.textContent=heading+": ";el.appendChild(strong);el.appendChild(document.createTextNode(text));}else el.textContent=text;result.appendChild(el);}result.hidden=false;result.scrollIntoView({behavior:"smooth",block:"start"});}
-document.getElementById("notesSubject").addEventListener("change",updateScienceTopics);document.getElementById("notesLevel").addEventListener("change",updateScienceTopics);updateScienceTopics();
+  <div class="card">
+    <h3>🎁 Send a gift to a classmate</h3>
+    <p class="muted">Choose a classmate and send a digital gift. This demo records the gift on this device only; real account-to-account gifts need a connected database.</p>
+    <label for="gift-recipient">Classmate's username or email</label>
+    <input id="gift-recipient" type="text" placeholder="e.g. aisha123" />
+    <label for="gift-kind">Choose a gift</label>
+    <select id="gift-kind">
+      <option value="🎉 Well done">🎉 Well done</option>
+      <option value="📚 Study Star">📚 Study Star</option>
+      <option value="💎 Diamond Badge">💎 Diamond Badge</option>
+      <option value="🌟 Super Learner">🌟 Super Learner</option>
+    </select>
+    <button class="primary" onclick="spSendGift()">Send gift</button>
+    <p id="gift-status" class="notice" aria-live="polite"></p>
+    <h4>Gifts sent on this device</h4>
+    <div id="gift-history" class="stack"><p class="muted">No gifts sent yet.</p></div>
+  </div>
 
-(function(){const form=document.getElementById("spRegisterForm"),nameInput=document.getElementById("spName"),emailInput=document.getElementById("spProfileEmail"),levelInput=document.getElementById("spLevel"),result=document.getElementById("spProfileResult"),editButton=document.getElementById("spEditButton"),key="sciencepro_student_profile_v1";
-function showProfile(p){result.replaceChildren();const h=document.createElement("h3");h.textContent="Bayanan ɗalibi / Student details";result.appendChild(h);[["Suna / Name",p.name],["Imel / Email",p.email||"Ba a saka ba / Not provided"],["Mataki / Level",p.level]].forEach(([label,value])=>{const pEl=document.createElement("p"),b=document.createElement("strong");b.textContent=label+": ";pEl.append(b,document.createTextNode(value));result.appendChild(pEl);});result.hidden=false;editButton.hidden=false;}
-try{const saved=localStorage.getItem(key);if(saved){const p=JSON.parse(saved);if(p&&typeof p.name==="string"&&typeof p.level==="string"){nameInput.value=p.name;emailInput.value=p.email||"";levelInput.value=p.level;showProfile(p);}}}catch(e){}
-form.addEventListener("submit",e=>{e.preventDefault();const p={name:nameInput.value.trim(),email:emailInput.value.trim(),level:levelInput.value};if(!p.name)return;try{localStorage.setItem(key,JSON.stringify(p));showProfile(p);alert("An ajiye bayananka! / Profile saved!");}catch(e){alert("Ba a iya ajiye bayanan ba. Duba saitunan browser.");}});
-editButton.addEventListener("click",()=>{nameInput.focus();form.scrollIntoView({behavior:"smooth",block:"start"});});})();
+  <div class="card">
+    <h3>🏆 Admin rewards for top students</h3>
+    <p class="muted">You, as the app owner, choose the students who deserve rewards based on quiz/exam results, effort, and fair rules.</p>
+    <label for="reward-student">Student username</label>
+    <input id="reward-student" type="text" placeholder="Student username" />
+    <label for="reward-name">Reward</label>
+    <select id="reward-name">
+      <option value="Top Student">🏆 Top Student</option>
+      <option value="Quiz Champion">🥇 Quiz Champion</option>
+      <option value="Consistent Learner">🌟 Consistent Learner</option>
+      <option value="Study Scholarship">🎓 Study Scholarship</option>
+    </select>
+    <label for="reward-note">Message (optional)</label>
+    <input id="reward-note" type="text" placeholder="Congratulations on your hard work!" />
+    <button class="primary" onclick="spAwardReward()">Record reward (demo)</button>
+    <p id="reward-status" class="notice" aria-live="polite"></p>
+    <div id="reward-history" class="stack"><p class="muted">No rewards recorded on this device yet.</p></div>
+    <p class="small muted">Important: this demo form is not protected as an administrator tool. Before launch, rewards must be moved to a secure backend so only you can award them.</p>
+  </div>
 
-let spSelectedPlan="";
-const spPlanPrices={daily:200,weekly:1000,monthly:3000,special:5000};
-function spChoosePlan(plan){if(!Object.prototype.hasOwnProperty.call(spPlanPrices,plan)){alert("Ba a gane wannan plan ba.");return;}spSelectedPlan=plan;document.querySelectorAll("#sciencepro-plans .sp-plan").forEach(card=>card.classList.toggle("selected",card.dataset.plan===plan));const area=document.getElementById("sp-email-area"),msg=document.getElementById("sp-message");area.hidden=false;msg.style.display="block";msg.textContent="Ka zaɓi "+plan+" plan (₦"+spPlanPrices[plan].toLocaleString("en-NG")+"). Wannan ba ya nufin an biya kuɗi. / Plan selected; no payment has been made yet.";area.scrollIntoView({behavior:"smooth",block:"center"});}
-async function spPayNow(){const input=document.getElementById("sp-pay-email"),msg=document.getElementById("sp-message"),email=input.value.trim();if(!spSelectedPlan){alert("Da farko ka zaɓi plan.");return;}if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert("Ka shigar da email mai inganci.");input.focus();return;}msg.style.display="block";msg.textContent="Ana haɗawa da Paystack...";try{const response=await fetch("https://sciencepro-backend-v2.onrender.com/api/payments/initialize",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,plan:spSelectedPlan})});let data;try{data=await response.json();}catch(e){throw new Error("Server bai dawo da amsa mai kyau ba.");}if(!response.ok||!data.authorization_url)throw new Error(data.message||data.error||"An kasa fara biyan kuɗi.");window.location.href=data.authorization_url;}catch(error){msg.textContent="An kasa fara biyan kuɗi: "+error.message+". Ka duba intanet ko backend ɗin Render.";}}
-</script>
-</body>
-</html>
+  <div class="card">
+    <h3>🤝 Invite friends & earn</h3>
+    <p>Share your invite code with a friend. A real reward should be granted only after the backend confirms the friend's eligible registration, to prevent fake referrals.</p>
+    <div class="invite-code-row">
+      <code id="sp-invite-code">SP-LEARN-001</code>
+      <button class="secondary" onclick="spCopyInvite()">Copy code</button>
+    </div>
+    <label for="invite-link">Invite link</label>
+    <input id="invite-link" type="text" readonly />
+    <button class="primary" onclick="spShareInvite()">Share invite link</button>
+    <div class="stats-grid">
+      <div class="stat"><strong id="invite-count">0</strong><span>Invites recorded here</span></div>
+      <div class="stat"><strong id="invite-points">0</strong><span>Demo reward points</span></div>
+    </div>
+    <p class="small muted">Referral counts and points on this page are local demo data only. Verified referrals and real rewards require user accounts, database storage, and server-side checks.</p>
+    <div id="invite-history" class="stack"><p class="muted">No referral activity yet.</p></div>
+  </div>
+</section>
+
+<section id="profile" class="page"><div class="banner"><small>STUDENT PROFILE</small><h2 id="profileHello">Your learning profile</h2><p>Track points, quiz progress and results.</p></div><div class="tiles"><div class="tile"><strong>Points</strong><div id="points">0</div></div><div class="tile"><strong>Correct answers</strong><div id="correct">0</div></div><div class="tile"><strong>Practice exams</strong><div id="examsDone">0</div></div></div><div class="card"><label>Your name</label><input id="profileName" class="field" placeholder="Full name"><label>Email</label><input id="profileEmail" type="email" class="field" placeholder="Email address"><button class="primary" onclick="saveProfile()">Save profile</button><p id="profileStatus" class="muted">Saved on this device only.</p></div><div class="card"><h3>🎁 Gifts & Rewards</h3><p>Earn points by answering correctly. Real gifts need published rules, funding and administrator verification. Points displayed here are local demo points, not cash.</p><p><b>Your points: <span id="giftPoints">0</span></b></p><button class="soft" onclick="go('quiz')">Play quiz</button></div><div class="card"><h3>Recent results</h3><div id="recent" class="muted">No results yet.</div></div><h2>💳 Study plans</h2><div class="planrow"><div class="plan"><h3>Daily</h3><strong>₦200</strong><p class="muted">1 day</p><button class="soft" onclick="plan('daily')">Choose</button></div><div class="plan"><h3>Weekly</h3><strong>₦1,000</strong><p class="muted">7 days</p><button class="soft" onclick="plan('weekly')">Choose</button></div><div class="plan"><h3>Monthly</h3><strong>₦3,000</strong><p class="muted">30 days</p><button class="soft" onclick="plan('monthly')">Choose</button></div><div class="plan"><h3>Term</h3><strong>₦5,000</strong><p class="muted">90 days</p><button class="soft" onclick="plan('special')">Choose</button></div></div><div id="planStatus" class="notice">Payment is not started until you choose a plan.</div></section>
+</main><nav class="bottom"><div class="nav"><button class="active" data-id="home" onclick="go('home')"><span>🏠</span>Home</button><button data-id="study" onclick="go('study')"><span>📚</span>Study</button><button data-id="meet" onclick="go('meet')"><span>🧭</span>Meet</button><button data-id="community" onclick="go('community')"><span>🏆</span>Community</button><button data-id="inbox" onclick="go('inbox')"><span>💬</span>Inbox</button><button data-id="profile" onclick="go('profile')"><span>👤</span>Me</button></div></nav>
+<script src="https://sciencepro-backend-v2.onrender.com/socket.io/socket.io.js"></script><script>
+const API="https://sciencepro-backend-v2.onrender.com";
+const subjects=[{icon:"➗",en:"Mathematics",ha:"Lissafi",note:"Mathematics studies numbers and patterns. Speed = distance ÷ time.",hnote:"Lissafi yana nazarin lambobi da tsari. Gudu = nisa ÷ lokaci."},{icon:"⚡",en:"Physics",ha:"Physics",note:"Physics studies matter, energy, forces and motion.",hnote:"Physics yana nazarin abu, makamashi, ƙarfi da motsi."},{icon:"🧪",en:"Chemistry",ha:"Chemistry",note:"Chemistry studies substances and their changes. Atoms contain protons, neutrons and electrons.",hnote:"Chemistry yana nazarin abubuwa da sauyinsu. Atom yana da protons, neutrons da electrons."},{icon:"🧬",en:"Biology",ha:"Biology",note:"Biology studies living things. Cells are basic units of life.",hnote:"Biology yana nazarin halittu masu rai. Cell shi ne ginshiƙin rayuwa."},{icon:"💻",en:"Computer Science",ha:"Kimiyyar Kwamfuta",note:"Computer science studies algorithms, software and data.",hnote:"Kimiyyar kwamfuta tana nazarin algorithms, software da bayanai."},{icon:"📖",en:"English",ha:"Turanci",note:"A noun names a person, place, thing or idea.",hnote:"Noun suna ne na mutum, wuri, abu ko ra'ayi."}];
+const questions=[{q:"What is 2 + 2? / Nawa ne 2 + 2?",o:["3","4","5"],a:1,why:"2 + 2 = 4. / 2 da 2 sun zama 4."},{q:"Which planet do we live on?",o:["Mars","Earth","Venus"],a:1,why:"We live on Earth."},{q:"What is H₂O commonly called?",o:["Salt","Water","Oxygen"],a:1,why:"H₂O is water."},{q:"What is the basic unit of life?",o:["Cell","Rock","Cloud"],a:0,why:"The cell is the basic unit of life."},{q:"What does CPU stand for?",o:["Central Processing Unit","Computer Power User","Central Program Utility"],a:0,why:"CPU means Central Processing Unit."}];
+let lang="en",qi=0,answered=false,quizScore=0;
+function go(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.id===id));window.scrollTo({top:0,behavior:"smooth"})}
+function renderSubjects(){document.getElementById("subjects").innerHTML=subjects.map((s,i)=>`<div class="tile" onclick="openSubject(${i})"><div class="ico">${s.icon}</div><strong>${lang==="en"?s.en:s.ha}</strong></div>`).join("")}
+function openSubject(i){let s=subjects[i];document.getElementById("lessonTitle").textContent=lang==="en"?s.en:s.ha;document.getElementById("lessonText").textContent=(lang==="en"?s.note:s.hnote)+"\n\n"+(lang==="en"?s.hnote:s.note)}
+function toggleLang(){lang=lang==="en"?"ha":"en";document.getElementById("langBtn").textContent=lang==="en"?"Hausa / EN":"English / HA";document.getElementById("welcome").textContent=lang==="en"?"Learn together. Shine together.":"Ku yi karatu tare. Ku haskaka tare.";renderSubjects()}
+function stats(){try{return JSON.parse(localStorage.getItem("sciencepro-stats")||'{"points":0,"correct":0,"exams":0,"results":[]}')}catch{return {points:0,correct:0,exams:0,results:[]}}}
+function saveStats(s){localStorage.setItem("sciencepro-stats",JSON.stringify(s));refreshStats()}
+function refreshStats(){let s=stats();document.getElementById("points").textContent=document.getElementById("giftPoints").textContent=s.points;document.getElementById("correct").textContent=s.correct;document.getElementById("examsDone").textContent=s.exams;document.getElementById("recent").textContent=s.results.length?s.results.slice(-5).reverse().map(x=>`${x.title}: ${x.score}/${x.total} (${x.date})`).join("\n"):"No results yet.";document.getElementById("recent").style.whiteSpace="pre-line"}
+function renderQ(){answered=false;let q=questions[qi];document.getElementById("qProgress").textContent=`Question ${qi+1} of ${questions.length}`;document.getElementById("qText").textContent=q.q;document.getElementById("qOptions").innerHTML=q.o.map((x,i)=>`<button class="answer" onclick="answerQ(${i})">${x}</button>`).join("");document.getElementById("qResult").textContent="";document.getElementById("qNext").disabled=true;document.getElementById("qNext").textContent=qi===questions.length-1?"Finish quiz":"Next question"}
+function answerQ(i){if(answered)return;answered=true;let q=questions[qi],buttons=[...document.querySelectorAll("#qOptions button")],ok=i===q.a;buttons[q.a].classList.add("correct");if(!ok)buttons[i].classList.add("wrong");document.getElementById("qResult").textContent=(ok?"Correct! +10 points. ":"Not quite. ")+q.why;if(ok){quizScore++;let s=stats();s.points+=10;s.correct++;saveStats(s)}document.getElementById("qNext").disabled=false}
+function nextQ(){if(!answered)return;if(qi<questions.length-1){qi++;renderQ();return}let s=stats();s.results.push({title:"SciencePro Quiz",score:quizScore,total:questions.length,date:new Date().toLocaleDateString()});saveStats(s);document.getElementById("qResult").textContent=`Finished: ${quizScore}/${questions.length}. Check your profile for results.`;qi=0;quizScore=0;setTimeout(renderQ,2200)}
+function addBubble(boxId,name,text){let box=document.getElementById(boxId),el=document.createElement("div"),b=document.createElement("b"),sp=document.createElement("span");el.className="bubble";b.textContent=name;sp.textContent=text;el.append(b,sp);box.append(el);box.scrollTop=box.scrollHeight}
+async function post(path,body){let r=await fetch(API+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});let d={};try{d=await r.json()}catch{}if(!r.ok)throw Error(d.error||d.message||`Request failed (${r.status})`);return d}
+document.getElementById("aiForm").onsubmit=async e=>{e.preventDefault();let input=document.getElementById("aiInput"),msg=input.value.trim();if(!msg)return;addBubble("aiBox","You",msg);input.value="";document.getElementById("aiStatus").textContent="Thinking…";try{let d=await post("/api/ai/chat",{message:msg,language:lang==="ha"?"Hausa":"English"});let reply=d.reply||d.answer||d.output_text||d.text;if(!reply)throw Error("No answer text returned. Backend response format needs checking.");addBubble("aiBox","SciencePro AI",String(reply));document.getElementById("aiStatus").textContent="Reply received."}catch(err){addBubble("aiBox","SciencePro",err.message);document.getElementById("aiStatus").textContent="AI connection failed; check the Render endpoint."}};
+document.getElementById("makeExam").onclick=async()=>{let b=document.getElementById("makeExam"),st=document.getElementById("examStatus");b.disabled=true;st.textContent="Generating practice exam…";try{let d=await post("/api/ai/exam",{subject:document.getElementById("examSubject").value,count:Number(document.getElementById("examCount").value),level:document.getElementById("examLevel").value||"general",language:lang==="ha"?"Hausa and English":"English"});let qs=d.questions||d.exam?.questions;if(!Array.isArray(qs)||!qs.length)throw Error("Backend did not return questions. Add/test the /api/ai/exam route.");renderExam(qs);st.textContent="Exam created. Answer all questions and submit."}catch(e){st.textContent=e.message}finally{b.disabled=false}};
+function renderExam(qs){let area=document.getElementById("examArea");area.innerHTML="";let form=document.createElement("form");form.className="card";qs.forEach((q,i)=>{let wrap=document.createElement("div");wrap.className="card";let p=document.createElement("p");p.textContent=`${i+1}. ${q.question||q.q||"Question"}`;wrap.append(p);(q.options||q.choices||[]).forEach((o,j)=>{let label=document.createElement("label");label.style.display="block";let r=document.createElement("input");r.type="radio";r.name="q"+i;r.value=j;r.required=true;label.append(r,document.createTextNode(" "+(typeof o==="string"?o:o.text||o.label||"Option")));wrap.append(label)});form.append(wrap)});let btn=document.createElement("button");btn.className="primary";btn.textContent="Submit answers";form.append(btn);form.onsubmit=e=>{e.preventDefault();let score=0;qs.forEach((q,i)=>{let picked=form.querySelector(`input[name="q${i}"]:checked`),a=q.answerIndex??q.correctIndex??q.answer_index;if(picked&&a!==undefined&&Number(picked.value)===Number(a))score++});let s=stats();s.exams++;s.results.push({title:document.getElementById("examSubject").value+" Exam",score,total:qs.length,date:new Date().toLocaleDateString()});saveStats(s);let result=document.createElement("p");result.textContent=`Result: ${score}/${qs.length} (${Math.round(score/qs.length*100)}%).`;form.append(result);btn.disabled=true};area.append(form)}
+function saveProfile(){let p={name:document.getElementById("profileName").value.trim(),email:document.getElementById("profileEmail").value.trim()};localStorage.setItem("sciencepro-profile",JSON.stringify(p));document.getElementById("profileStatus").textContent="Saved on this device.";document.getElementById("profileHello").textContent=p.name?`Welcome, ${p.name}`:"Your learning profile"}
+try{let p=JSON.parse(localStorage.getItem("sciencepro-profile")||"{}");document.getElementById("profileName").value=p.name||"";document.getElementById("profileEmail").value=p.email||"";if(p.name)document.getElementById("profileHello").textContent="Welcome, "+p.name}catch{}renderSubjects();renderQ();refreshStats();
+function plan(p){let email=document.getElementById("profileEmail").value.trim(),status=document.getElementById("planStatus");if(!email){status.textContent="Please enter your email in your profile first.";document.getElementById("profileEmail").focus();return}status.textContent="Connecting to Paystack…";post("/api/payments/initialize",{email,plan:p}).then(d=>{if(!d.authorization_url)throw Error("Payment URL missing");location.href=d.authorization_url}).catch(e=>status.textContent="Payment error: "+e.message)}
+let sock=null;document.getElementById("joinChat").onclick=()=>{if(typeof io!=="function"){document.getElementById("chatStatus").textContent="Socket.IO client did not load.";return}if(sock)sock.disconnect();sock=io(API);sock.on("connect",()=>{document.getElementById("chatStatus").textContent="Connected";sock.emit("chat:join",{name:document.getElementById("chatName").value||"Student",room:document.getElementById("chatRoom").value||"sciencepro-lobby"})});sock.on("chat:message",m=>addBubble("chatBox",m.name||"Student",m.text||""));sock.on("chat:system",m=>addBubble("chatBox","System",m.text||""));sock.on("connect_error",()=>document.getElementById("chatStatus").textContent="Connection failed; backend chat events need checking.")};
+document.getElementById("chatForm").onsubmit=e=>{e.preventDefault();let input=document.getElementById("chatInput"),v=input.value.trim();if(sock?.connected&&v){sock.emit("chat:message",{text:v});input.value=""}else document.getElementById("chatStatus").textContent="Connect to chat first."};
+
+// Gifts, owner-selected rewards, and referral demo.
+// These are local-only until authenticated backend endpoints are connected.
+function spReadList(key) {
+  try { const value = JSON.parse(localStorage.getItem(key) || "[]"); return Array.isArray(value) ? value : []; }
+  catch (_) { return []; }
+}
+function spWriteList(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
+function spEscape(value) {
+  return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function spSendGift() {
+  const recipient = (document.getElementById("gift-recipient")?.value || "").trim();
+  const gift = document.getElementById("gift-kind")?.value || "🎉 Well done";
+  const status = document.getElementById("gift-status");
+  if (!recipient) { if(status) status.textContent = "Enter your classmate's username or email first."; return; }
+  const items = spReadList("sciencepro_gifts_demo");
+  items.unshift({recipient, gift, date: new Date().toLocaleString()});
+  spWriteList("sciencepro_gifts_demo", items.slice(0, 30));
+  if(status) status.textContent = "Gift recorded on this device (demo). It has not been delivered to another account yet.";
+  document.getElementById("gift-recipient").value = "";
+  spRenderGiftReward();
+}
+function spAwardReward() {
+  const student = (document.getElementById("reward-student")?.value || "").trim();
+  const reward = document.getElementById("reward-name")?.value || "Top Student";
+  const note = (document.getElementById("reward-note")?.value || "").trim();
+  const status = document.getElementById("reward-status");
+  if (!student) { if(status) status.textContent = "Enter the winning student's username first."; return; }
+  const items = spReadList("sciencepro_rewards_demo");
+  items.unshift({student, reward, note, date: new Date().toLocaleString()});
+  spWriteList("sciencepro_rewards_demo", items.slice(0, 30));
+  if(status) status.textContent = "Reward recorded locally for demonstration only.";
+  document.getElementById("reward-student").value = "";
+  document.getElementById("reward-note").value = "";
+  spRenderGiftReward();
+}
+function spRenderGiftReward() {
+  const gifts = spReadList("sciencepro_gifts_demo");
+  const rewards = spReadList("sciencepro_rewards_demo");
+  const gh = document.getElementById("gift-history");
+  const rh = document.getElementById("reward-history");
+  if(gh) gh.innerHTML = gifts.length ? gifts.map(x => `<div class="list-item"><strong>${spEscape(x.gift)}</strong><div>To: ${spEscape(x.recipient)}</div><small>${spEscape(x.date)}</small></div>`).join("") : '<p class="muted">No gifts sent yet.</p>';
+  if(rh) rh.innerHTML = rewards.length ? rewards.map(x => `<div class="list-item"><strong>${spEscape(x.reward)}</strong><div>Student: ${spEscape(x.student)}</div><div>${spEscape(x.note || "")}</div><small>${spEscape(x.date)}</small></div>`).join("") : '<p class="muted">No rewards recorded on this device yet.</p>';
+}
+function spGetInviteCode() {
+  let code = localStorage.getItem("sciencepro_invite_code");
+  if(!code) {
+    code = "SP-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+    localStorage.setItem("sciencepro_invite_code", code);
+  }
+  return code;
+}
+function spInviteUrl() {
+  const url = new URL(window.location.href);
+  url.searchParams.set("ref", spGetInviteCode());
+  return url.toString();
+}
+function spRenderInvite() {
+  const code = spGetInviteCode();
+  const el = document.getElementById("sp-invite-code");
+  const link = document.getElementById("invite-link");
+  if(el) el.textContent = code;
+  if(link) link.value = spInviteUrl();
+  const referrals = spReadList("sciencepro_referrals_demo");
+  const count = document.getElementById("invite-count");
+  const points = document.getElementById("invite-points");
+  if(count) count.textContent = referrals.length;
+  if(points) points.textContent = referrals.length * 10;
+  const history = document.getElementById("invite-history");
+  if(history) history.innerHTML = referrals.length ? referrals.map(x => `<div class="list-item">${spEscape(x.label)} <small>${spEscape(x.date)}</small></div>`).join("") : '<p class="muted">No referral activity yet.</p>';
+}
+async function spCopyInvite() {
+  const code = spGetInviteCode();
+  try { await navigator.clipboard.writeText(code); alert("Invite code copied: " + code); }
+  catch (_) { prompt("Copy your invite code:", code); }
+}
+async function spShareInvite() {
+  const url = spInviteUrl();
+  if(navigator.share) { try { await navigator.share({title:"Join SciencePro", text:"Let's learn together on SciencePro!", url}); } catch (_) {} }
+  else { try { await navigator.clipboard.writeText(url); alert("Invite link copied."); } catch (_) { prompt("Copy your invite link:", url); } }
+}
+function spRecordReferralDemo(label) {
+  const referrals = spReadList("sciencepro_referrals_demo");
+  if(referrals.some(x => x.label === label)) return;
+  referrals.unshift({label, date: new Date().toLocaleString()});
+  spWriteList("sciencepro_referrals_demo", referrals.slice(0, 100));
+  spRenderInvite();
+}
+document.addEventListener("DOMContentLoaded", () => {
+  spRenderGiftReward();
+  spRenderInvite();
+});
+
+
+function spList(key){try{let x=JSON.parse(localStorage.getItem(key)||"[]");return Array.isArray(x)?x:[]}catch(e){return[]}}
+function spStore(key,x){localStorage.setItem(key,JSON.stringify(x))}
+function spEsc(x){return String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function spRenderLeaderboard(){let items=spList("sp_demo_leaderboard").sort((a,b)=>b.score-a.score);const el=document.getElementById("sp-leaderboard");if(!el)return;el.innerHTML=items.length?items.slice(0,20).map((x,i)=>`<div class="community-item"><strong>${["🥇","🥈","🥉"][i]||("#"+(i+1))} ${spEsc(x.name)}</strong><span>${spEsc(x.score)}%</span></div>`).join(""):'<p class="muted">No scores yet. Add demo scores or connect real quiz results.</p>'}
+function spAddLeaderboardScore(){let name=(document.getElementById("leader-name").value||"").trim(),score=Number(document.getElementById("leader-score").value);if(!name||!Number.isFinite(score)||score<0||score>100){alert("Enter a student name and a score from 0 to 100.");return}let items=spList("sp_demo_leaderboard").filter(x=>x.name.toLowerCase()!==name.toLowerCase());items.push({name,score});spStore("sp_demo_leaderboard",items);document.getElementById("leader-name").value="";document.getElementById("leader-score").value="";spRenderLeaderboard()}
+function spRenderRooms(){const el=document.getElementById("sp-room-list");if(!el)return;const rooms=spList("sp_demo_rooms");el.innerHTML=rooms.length?rooms.map(r=>`<div class="community-item"><div><strong>📚 ${spEsc(r.title)}</strong><div class="muted">${spEsc(r.subject)} · ${spEsc(r.description||"Study together")}</div><small>Room ID: ${spEsc(r.id)}</small></div><button class="soft" onclick="spJoinRoom('${spEsc(r.id)}')">Join room</button></div>`).join(""):'<p class="muted">No rooms created yet.</p>'}
+function spCreateRoom(){const title=(document.getElementById("sp-room-title").value||"").trim(),subject=document.getElementById("sp-room-subject").value,description=(document.getElementById("sp-room-description").value||"").trim();if(!title){document.getElementById("sp-room-status").textContent="Please enter a room name.";return}const id="ROOM-"+Math.random().toString(36).slice(2,7).toUpperCase();const rooms=spList("sp_demo_rooms");rooms.unshift({id,title,subject,description});spStore("sp_demo_rooms",rooms);document.getElementById("sp-room-status").textContent="Room created in demo mode. Real cross-device rooms need backend support.";document.getElementById("sp-room-title").value="";document.getElementById("sp-room-description").value="";spRenderRooms()}
+function spJoinRoom(id){document.getElementById("chatRoom").value=id;go("meet");document.getElementById("chatStatus").textContent="Room selected. Tap Connect to chat. Cross-device rooms require backend support."}
+function spSaveMyUser(){let name=(document.getElementById("sp-my-username").value||"").trim();if(!name){alert("Enter your display name first.");return}let users=spList("sp_demo_users"),mine=localStorage.getItem("sp_demo_my_userid");if(!mine){mine="SP-"+Math.random().toString(10).slice(2,8);localStorage.setItem("sp_demo_my_userid",mine)}users=users.filter(x=>x.id!==mine);users.push({id:mine,name});spStore("sp_demo_users",users);document.getElementById("sp-my-userid").textContent="Your demo User ID: "+mine+" (share it with friends)."}
+function spSearchUser(){const id=(document.getElementById("sp-search-user").value||"").trim().toUpperCase(),el=document.getElementById("sp-user-result"),found=spList("sp_demo_users").find(x=>x.id.toUpperCase()===id);el.innerHTML=found?`<div class="community-item"><div><strong>${spEsc(found.name)}</strong><div class="muted">User ID: ${spEsc(found.id)}</div></div><span>Student</span></div>`:'<p class="muted">No matching student found on this device. A full directory needs the backend/database.</p>'}
+document.addEventListener("DOMContentLoaded",()=>{spRenderLeaderboard();spRenderRooms();const id=localStorage.getItem("sp_demo_my_userid");if(id&&document.getElementById("sp-my-userid"))document.getElementById("sp-my-userid").textContent="Your demo User ID: "+id})
+
+</script></body></html>
