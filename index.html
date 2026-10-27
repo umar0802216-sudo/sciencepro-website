@@ -2,10 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#1769e0">
-<title>SciencePro — Learn, Meet, Grow</title>
+<title>SciencePro Update 1 — Learn, Meet, Grow</title>
 <style>
 :root{--blue:#1769e0;--deep:#102b55;--bg:#f5f7fb;--ink:#182230;--muted:#718096;--line:#e7ebf3}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,sans-serif;color:var(--ink)}button,input,textarea,select{font:inherit}button{border:0;cursor:pointer;font-weight:700;border-radius:13px;padding:11px 14px}.primary{background:var(--blue);color:white}.soft{background:#eaf1ff;color:#1556b7}.top{padding:15px;background:white;position:sticky;top:0;z-index:3;border-bottom:1px solid var(--line)}.toprow,.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.brand{font-size:24px;font-weight:900;color:var(--deep)}.brand b{color:var(--blue)}.muted{color:var(--muted);font-size:13px}.page{display:none;padding:15px 15px 100px;max-width:850px;margin:auto}.page.active{display:block}.banner{background:linear-gradient(125deg,#1b71e9,#8b50ed);color:white;border-radius:22px;padding:20px;margin-bottom:17px}.banner h2{margin:8px 0}.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.tile,.card,.plan{background:white;border:1px solid var(--line);border-radius:17px;padding:13px;margin:8px 0}.tile{text-align:center;cursor:pointer}.tile .ico{font-size:26px}.tile strong{display:block;font-size:13px;margin-top:5px}.field{width:100%;padding:12px;border:1px solid #d5dce8;border-radius:12px;margin:5px 0 12px;background:white}.titleRow{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}.chatbox{height:240px;overflow:auto;border:1px solid var(--line);background:white;border-radius:14px;padding:10px}.bubble{padding:10px;background:#edf4ff;border-radius:12px;margin:7px 0;white-space:pre-wrap;overflow-wrap:anywhere}.bubble b{display:block;font-size:11px;color:var(--blue)}.bottom{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--line);z-index:8}.nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));justify-content:stretch;padding:6px 2px calc(6px + env(safe-area-inset-bottom));gap:1px;overflow:visible}.nav button{min-width:0;width:100%;background:transparent;color:#69788d;font-size:10px;padding:5px 1px;white-space:nowrap;border-radius:10px}.nav button span{display:block;font-size:19px;line-height:1.3;margin-bottom:2px}.nav button.active{color:var(--blue);background:#edf4ff}.notice{background:#fff5dc;padding:11px;border-radius:12px;font-size:12px;margin:10px 0}.planrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}.plan strong{font-size:22px;color:var(--blue)}.answer{display:block;width:100%;text-align:left;margin:7px 0;background:#f0f4fb;color:var(--ink)}.correct{background:#dff8e8!important}.wrong{background:#ffe4e4!important}video{width:100%;background:#111;border-radius:12px;aspect-ratio:4/3}@media(min-width:650px){.page{padding-top:22px}.tiles{grid-template-columns:repeat(3,1fr)}}
+
+/* SciencePro Update 1: consistent community hero card */
+.hero-card{background:linear-gradient(125deg,#1b71e9,#8b50ed);color:#fff;border-radius:22px;padding:20px;margin:8px 0 17px;box-shadow:0 8px 24px rgba(23,105,224,.14)}
+.hero-card h2{margin:8px 0;font-size:24px;line-height:1.25}
+.hero-card p{margin:8px 0 0;line-height:1.55}
+.hero-card .eyebrow{font-size:11px;font-weight:800;letter-spacing:.08em;opacity:.9}
+#gift-center .card{overflow:hidden}
+@media(max-width:380px){.brand{font-size:21px}.nav button{font-size:9px}.nav button span{font-size:18px}.hero-card{padding:16px}}
 
 /* Gifts, rewards and referral cards */
 #gift-center .card { margin: 16px 0; padding: 18px; border-radius: 18px; background: var(--surface, #fff); box-shadow: 0 8px 26px rgba(16,43,85,.08); }
@@ -127,7 +135,7 @@
     <input id="invite-link" type="text" readonly />
     <button class="primary" onclick="spShareInvite()">Share invite link</button>
     <div class="stats-grid">
-      <div class="stat"><strong id="invite-count">0</strong><span>Invites recorded here</span></div>
+      <div class="stat"><strong id="invite-count">0</strong><span>Invite-link opens on this device</span></div>
       <div class="stat"><strong id="invite-points">0</strong><span>Demo reward points</span></div>
     </div>
     <p class="small muted">Referral counts and points on this page are local demo data only. Verified referrals and real rewards require user accounts, database storage, and server-side checks.</p>
@@ -313,6 +321,12 @@ function spRecordReferralDemo(label) {
   spRenderInvite();
 }
 document.addEventListener("DOMContentLoaded", () => {
+  // Update 1: record that an invite link was opened on this device only.
+  // This is not a verified referral and does not award real rewards.
+  try {
+    const ref = new URLSearchParams(window.location.search).get("ref");
+    if (ref && ref !== spGetInviteCode()) spRecordReferralDemo("Invite link opened: " + ref);
+  } catch (_) {}
   spRenderGiftReward();
   spRenderInvite();
   spRenderWallet();
