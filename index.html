@@ -43,7 +43,57 @@
 <section id="home" class="page active"><div class="banner"><small>WELCOME TO YOUR LEARNING COMMUNITY</small><h2 id="welcome">Learn together. Shine together.</h2><p>Study, practice exams, earn points and ask your AI tutor.</p><button class="primary" onclick="go('study')">Start learning ↗</button></div><div class="titleRow"><h2>Quick access</h2></div><div class="tiles">
 <div class="tile" onclick="go('study')"><div class="ico">📚</div><strong>Study Hub</strong><small>Notes & lessons</small></div><div class="tile" onclick="go('quiz')"><div class="ico">🧠</div><strong>Quiz Zone</strong><small>Earn points</small></div><div class="tile" onclick="go('ai')"><div class="ico">✨</div><strong>AI Tutor</strong><small>Ask questions</small></div><div class="tile" onclick="go('exam')"><div class="ico">📝</div><strong>AI Exam Lab</strong><small>Results</small></div><div class="tile" onclick="go('meet')"><div class="ico">🎙️</div><strong>Live Chat</strong><small>Study together</small></div><div class="tile" onclick="go('gift-center')"><div class="ico">🎁</div><strong>Gifts & Rewards</strong><small>Gifts and invites</small></div></div>
 <div class="card"><h3>🎓 Study rooms</h3><p class="muted">Chemistry Corner • Maths Practice • Computer Club • Science Lounge</p><button class="soft" onclick="go('meet')">Join community</button></div></section>
-<section id="study" class="page"><div class="titleRow"><h2>📚 Study Hub</h2><span class="muted">Hausa + English</span></div><div class="tiles" id="subjects"></div><div class="card"><h3 id="lessonTitle">Choose a subject</h3><p id="lessonText" class="muted">Tap a subject to read its starter note.</p><button class="primary" onclick="go('quiz')">Practice quiz</button></div></section>
+
+<section id="study" class="page">
+  <div class="titleRow">
+    <h2>📚 SciencePro Study Library</h2>
+    <span class="muted">Hausa + English</span>
+  </div>
+
+  <div class="card">
+    <h3>🌍 Learn Without Limits</h3>
+    <p class="muted">
+      Learn step by step with lessons, examples,
+      diagrams, practice and revision.
+      Koyi a hankali tare da darussa, misalai,
+      zane-zane da atisaye.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>📖 Choose Your Subject</h3>
+    <p class="muted">
+      Select a subject below to begin learning.
+      Zaɓi darasin da kake son karantawa.
+    </p>
+    <div class="tiles" id="subjects"></div>
+  </div>
+
+  <div class="card">
+    <h3 id="lessonTitle">Choose a subject</h3>
+    <p id="lessonText" class="muted">
+      Your lesson will appear here.
+      Darasinka zai bayyana a nan.
+    </p>
+
+    <div id="lessonTopics"></div>
+
+    <div id="lessonDiagram" class="card">
+      <h3>📊 Learning Diagrams</h3>
+      <p class="muted">
+        Diagrams and labels will appear here
+        when available for the selected lesson.
+        Zane-zane da sunayen sassa za su bayyana
+        idan darasin yana da su.
+      </p>
+    </div>
+
+    <button class="primary" onclick="go('quiz')">
+      🧠 Practice Quiz
+    </button>
+  </div>
+</section>
+
 <section id="quiz" class="page"><h2>🧠 Quiz Zone</h2><div class="card"><span id="qProgress" class="muted"></span><h3 id="qText"></h3><div id="qOptions"></div><p id="qResult" class="muted"></p><button class="primary" id="qNext" onclick="nextQ()" disabled>Next</button></div></section>
 <section id="exam" class="page"><h2>📝 AI Exam Lab</h2><div class="card"><p class="muted">Generate a practice test through the backend, then submit answers to see your score.</p><label>Subject</label><select id="examSubject" class="field"><option>Mathematics</option><option>Physics</option><option>Chemistry</option><option>Biology</option><option>Computer Science</option><option>English</option></select><label>Class / level</label><input id="examLevel" class="field" placeholder="e.g. SS2 or WAEC"><label>Questions</label><select id="examCount" class="field"><option>5</option><option>10</option><option>20</option></select><button class="primary" id="makeExam">Create AI practice exam</button><p id="examStatus" class="muted">Requires a working exam endpoint in Render.</p><div id="examArea"></div></div></section>
 <section id="ai" class="page"><h2>✨ AI Study Tutor</h2><div class="chatbox" id="aiBox"><div class="bubble"><b>SciencePro AI</b>Sannu! Ask me to explain a topic or help you revise.</div></div><form id="aiForm"><textarea id="aiInput" class="field" rows="2" placeholder="Ask a study question..." required></textarea><button class="primary">Send question</button></form><p id="aiStatus" class="muted">AI needs a working backend endpoint and private API key.</p></section>
@@ -147,12 +197,225 @@
 </main><nav class="bottom" aria-label="Main navigation"><div class="nav"><button class="active" data-id="home" onclick="go('home')"><span>🏠</span>Home</button><button data-id="gift-center" onclick="go('gift-center')"><span>🎁</span>Gift</button><button data-id="study" onclick="go('study')"><span>📚</span>Study</button><button data-id="meet" onclick="go('meet')"><span>🤝</span>Meet</button><button data-id="inbox" onclick="go('inbox')"><span>💬</span>Inbox</button><button data-id="profile" onclick="go('profile')"><span>👤</span>Profile</button></div></nav>
 <script src="https://sciencepro-backend-v2.onrender.com/socket.io/socket.io.js"></script><script>
 const API="https://sciencepro-backend-v2.onrender.com";
-const subjects=[{icon:"➗",en:"Mathematics",ha:"Lissafi",note:"Mathematics studies numbers and patterns. Speed = distance ÷ time.",hnote:"Lissafi yana nazarin lambobi da tsari. Gudu = nisa ÷ lokaci."},{icon:"⚡",en:"Physics",ha:"Physics",note:"Physics studies matter, energy, forces and motion.",hnote:"Physics yana nazarin abu, makamashi, ƙarfi da motsi."},{icon:"🧪",en:"Chemistry",ha:"Chemistry",note:"Chemistry studies substances and their changes. Atoms contain protons, neutrons and electrons.",hnote:"Chemistry yana nazarin abubuwa da sauyinsu. Atom yana da protons, neutrons da electrons."},{icon:"🧬",en:"Biology",ha:"Biology",note:"Biology studies living things. Cells are basic units of life.",hnote:"Biology yana nazarin halittu masu rai. Cell shi ne ginshiƙin rayuwa."},{icon:"💻",en:"Computer Science",ha:"Kimiyyar Kwamfuta",note:"Computer science studies algorithms, software and data.",hnote:"Kimiyyar kwamfuta tana nazarin algorithms, software da bayanai."},{icon:"📖",en:"English",ha:"Turanci",note:"A noun names a person, place, thing or idea.",hnote:"Noun suna ne na mutum, wuri, abu ko ra'ayi."}];
+
+const subjects = [
+  {
+    icon: "➗",
+    en: "Mathematics",
+    ha: "Lissafi",
+    note: "Mathematics studies numbers, patterns, quantities and logical relationships. Topics include arithmetic, fractions, algebra, geometry, statistics and calculus. Example: speed = distance ÷ time.",
+    hnote: "Lissafi yana nazarin lambobi, tsari da alaƙar abubuwa. Topics sun haɗa da arithmetic, fractions, algebra, geometry, statistics da calculus. Misali: gudu = nisa ÷ lokaci.",
+    topics: [
+      { title: "Numbers and Arithmetic", sub: "Whole numbers, integers, fractions, decimals, percentages and ratios." },
+      { title: "Algebra", sub: "Expressions, equations, inequalities, indices and simultaneous equations." },
+      { title: "Geometry", sub: "Angles, triangles, circles, polygons, perimeter, area and volume." },
+      { title: "Statistics and Probability", sub: "Mean, median, mode, charts, probability and data interpretation." },
+      { title: "Advanced Mathematics", sub: "Functions, trigonometry, limits, differentiation and integration." }
+    ]
+  },
+  {
+    icon: "⚡",
+    en: "Physics",
+    ha: "Physics",
+    note: "Physics studies matter, energy, motion and the forces that affect objects. It uses experiments, measurements, formulas and models.",
+    hnote: "Physics yana nazarin abu, makamashi, motsi da ƙarfin da ke shafar abubuwa. Ana amfani da gwaje-gwaje, ma'auni da formulas.",
+    topics: [
+      { title: "Measurements", sub: "SI units, length, mass, time, accuracy and measurement errors." },
+      { title: "Motion and Forces", sub: "Distance, displacement, speed, velocity, acceleration and Newton's laws." },
+      { title: "Energy and Heat", sub: "Work, power, energy transformations, temperature and heat transfer." },
+      { title: "Waves and Optics", sub: "Sound, light, reflection, refraction and lenses." },
+      { title: "Electricity and Magnetism", sub: "Current, voltage, resistance, circuits and magnetic fields." }
+    ]
+  },
+  {
+    icon: "🧪",
+    en: "Chemistry",
+    ha: "Chemistry",
+    note: "Chemistry studies substances, their composition, properties and changes. Atoms contain protons, neutrons and electrons.",
+    hnote: "Chemistry yana nazarin abubuwa, abubuwan da suka ƙunsa, halayensu da sauye-sauyen da suke yi. Atom yana da protons, neutrons da electrons.",
+    topics: [
+      { title: "Atomic Structure", sub: "Protons, neutrons, electrons, atomic number and mass number." },
+      { title: "Periodic Table", sub: "Groups, periods, metals, non-metals and periodic trends." },
+      { title: "Chemical Bonding", sub: "Ionic bonds, covalent bonds and metallic bonding." },
+      { title: "Chemical Reactions", sub: "Reaction types, balancing equations, acids, bases and salts." },
+      { title: "Organic Chemistry", sub: "Hydrocarbons, functional groups and common organic reactions." }
+    ]
+  },
+  {
+    icon: "🧬",
+    en: "Biology",
+    ha: "Biology",
+    note: "Biology studies living things, from cells to ecosystems. Topics include cell biology, plants, animals, genetics, ecology and human body systems.",
+    hnote: "Biology yana nazarin halittu masu rai, daga cell zuwa muhalli. Topics sun haɗa da cell, tsirrai, dabbobi, genetics, ecology da tsarin jikin mutum.",
+    topics: [
+      { title: "Cell Biology", sub: "Plant and animal cells, cell organelles, microscopy and cell division." },
+      { title: "Plant Biology", sub: "Roots, stems, leaves, flowers, photosynthesis and transport." },
+      { title: "Human Biology", sub: "Heart, blood circulation, digestion, respiration and excretion." },
+      { title: "Genetics and Evolution", sub: "DNA, genes, inheritance, variation and natural selection." },
+      { title: "Ecology", sub: "Ecosystems, food chains, food webs, habitats and conservation." }
+    ]
+  },
+  {
+    icon: "💻",
+    en: "Computer Science",
+    ha: "Kimiyyar Kwamfuta",
+    note: "Computer Science studies computing, algorithms, programming, software, data and networks.",
+    hnote: "Kimiyyar Kwamfuta tana nazarin algorithms, programming, software, bayanai da hanyoyin sadarwa.",
+    topics: [
+      { title: "Computer Fundamentals", sub: "Hardware, software, input, processing, output and storage." },
+      { title: "Programming", sub: "Variables, data types, conditions, loops and functions." },
+      { title: "Algorithms and Flowcharts", sub: "Problem-solving steps, pseudocode and decision diagrams." },
+      { title: "Data and Databases", sub: "Files, tables, records, queries and data protection." },
+      { title: "Networks and Security", sub: "Internet, network types, passwords, privacy and cybersecurity." }
+    ]
+  },
+  {
+    icon: "📖",
+    en: "English Language",
+    ha: "Turanci",
+    note: "English develops reading, writing, speaking, listening, grammar and vocabulary skills.",
+    hnote: "Darasin Turanci yana inganta karatu, rubutu, magana, sauraro, nahawu da ƙamus.",
+    topics: [
+      { title: "Parts of Speech", sub: "Nouns, pronouns, verbs, adjectives, adverbs and prepositions." },
+      { title: "Grammar and Tenses", sub: "Sentence structure, present, past and future tenses." },
+      { title: "Vocabulary", sub: "Word meanings, synonyms, antonyms and word formation." },
+      { title: "Reading Comprehension", sub: "Main ideas, details, inference and summarizing." },
+      { title: "Writing Skills", sub: "Paragraphs, essays, letters, punctuation and editing." }
+    ]
+  }
+];
+
 const questions=[{q:"What is 2 + 2? / Nawa ne 2 + 2?",o:["3","4","5"],a:1,why:"2 + 2 = 4. / 2 da 2 sun zama 4."},{q:"Which planet do we live on?",o:["Mars","Earth","Venus"],a:1,why:"We live on Earth."},{q:"What is H₂O commonly called?",o:["Salt","Water","Oxygen"],a:1,why:"H₂O is water."},{q:"What is the basic unit of life?",o:["Cell","Rock","Cloud"],a:0,why:"The cell is the basic unit of life."},{q:"What does CPU stand for?",o:["Central Processing Unit","Computer Power User","Central Program Utility"],a:0,why:"CPU means Central Processing Unit."}];
 let lang="en",qi=0,answered=false,quizScore=0;
 function go(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.id===id));window.scrollTo({top:0,behavior:"smooth"})}
 function renderSubjects(){document.getElementById("subjects").innerHTML=subjects.map((s,i)=>`<div class="tile" onclick="openSubject(${i})"><div class="ico">${s.icon}</div><strong>${lang==="en"?s.en:s.ha}</strong></div>`).join("")}
-function openSubject(i){let s=subjects[i];document.getElementById("lessonTitle").textContent=lang==="en"?s.en:s.ha;document.getElementById("lessonText").textContent=(lang==="en"?s.note:s.hnote)+"\n\n"+(lang==="en"?s.hnote:s.note)}
+
+
+function openSubject(i) {
+  const s = subjects[i];
+
+  document.getElementById("lessonTitle").textContent =
+    lang === "en" ? s.en : s.ha;
+
+  document.getElementById("lessonText").textContent =
+    (lang === "en" ? s.note : s.hnote) +
+    "\n\nEnglish / Hausa:\n" +
+    (lang === "en" ? s.hnote : s.note);
+
+  const topicsBox = document.getElementById("lessonTopics");
+
+  if (topicsBox) {
+    topicsBox.innerHTML = `
+      <h3>📚 Topics & Subtopics / Darussa</h3>
+      ${s.topics.map((topic, index) => `
+        <div class="card">
+          <h4>${index + 1}. ${topic.title}</h4>
+          <p>${topic.sub}</p>
+          <p><strong>Hausa:</strong> Ka karanta wannan topic a hankali.
+          Ka fahimci ma'anarsa, ka rubuta muhimman bayanai,
+          sannan ka yi atisaye.</p>
+        </div>
+      `).join("")}
+    `;
+  }
+
+  const diagram = document.getElementById("lessonDiagram");
+
+  if (diagram) {
+    if (s.en === "Biology") {
+      diagram.innerHTML = `
+        <h3>🧬 Biology: Labeled Cell Diagrams</h3>
+        <p class="muted">
+          Plant cells have a cell wall and a large central vacuole.
+          Animal cells do not have a cell wall.
+        </p>
+        <p>Cell na tsiro yana da cell wall da babban vacuole.
+        Cell na dabba ba shi da cell wall.</p>
+
+        <div class="card">
+          <h4>🌱 Plant Cell / Cell na Tsiro</h4>
+          <svg viewBox="0 0 320 245" width="100%"
+               role="img" aria-label="Labeled plant cell diagram">
+            <rect x="20" y="20" width="180" height="190"
+              rx="18" fill="#d8f3dc" stroke="#287a45" stroke-width="5"/>
+            <rect x="30" y="30" width="160" height="170"
+              rx="14" fill="#f1fae9" stroke="#75a96b" stroke-width="2"/>
+            <ellipse cx="76" cy="78" rx="25" ry="20"
+              fill="#b9a2e8" stroke="#6545a0" stroke-width="2"/>
+            <circle cx="76" cy="78" r="7" fill="#6545a0"/>
+            <rect x="105" y="65" width="65" height="95"
+              rx="12" fill="#a8d8f0" stroke="#3483a5" stroke-width="2"/>
+            <ellipse cx="52" cy="145" rx="12" ry="7" fill="#5da96b"/>
+            <ellipse cx="166" cy="48" rx="12" ry="7" fill="#5da96b"/>
+            <ellipse cx="166" cy="180" rx="12" ry="7" fill="#5da96b"/>
+            <g stroke="#333" stroke-width="1.5" fill="none">
+              <path d="M76 58 L215 42"/>
+              <path d="M135 100 L215 85"/>
+              <path d="M52 145 L215 128"/>
+              <path d="M20 190 L215 175"/>
+            </g>
+            <g font-size="10" fill="currentColor">
+              <text x="218" y="43">Nucleus</text>
+              <text x="218" y="86">Vacuole</text>
+              <text x="218" y="129">Chloroplast</text>
+              <text x="218" y="176">Cell wall</text>
+            </g>
+          </svg>
+          <p class="muted">
+            Nucleus — cibiyar sarrafa cell.
+            Vacuole — wurin ajiya.
+            Chloroplast — yana taimakawa wajen photosynthesis.
+            Cell wall — yana ba cell ƙarfi da kariya.
+          </p>
+        </div>
+
+        <div class="card">
+          <h4>🐾 Animal Cell / Cell na Dabba</h4>
+          <svg viewBox="0 0 320 225" width="100%"
+               role="img" aria-label="Labeled animal cell diagram">
+            <ellipse cx="125" cy="110" rx="95" ry="80"
+              fill="#ffe7c2" stroke="#b56b36" stroke-width="3"/>
+            <ellipse cx="105" cy="100" rx="28" ry="24"
+              fill="#c6b3ee" stroke="#6e50a0" stroke-width="2"/>
+            <circle cx="105" cy="100" r="8" fill="#6e50a0"/>
+            <path d="M145 65 q20 -15 28 3 q-10 15 -28 -3"
+              fill="#f2a6a6" stroke="#b34f58" stroke-width="2"/>
+            <path d="M145 150 q20 -15 28 3 q-10 15 -28 -3"
+              fill="#f2a6a6" stroke="#b34f58" stroke-width="2"/>
+            <circle cx="70" cy="145" r="7" fill="#81bde0"/>
+            <circle cx="160" cy="110" r="6" fill="#81bde0"/>
+            <g stroke="#333" stroke-width="1.5" fill="none">
+              <path d="M105 76 L220 45"/>
+              <path d="M165 65 L220 88"/>
+              <path d="M160 150 L220 135"/>
+              <path d="M30 110 L220 175"/>
+            </g>
+            <g font-size="10" fill="currentColor">
+              <text x="222" y="46">Nucleus</text>
+              <text x="222" y="89">Mitochondrion</text>
+              <text x="222" y="136">Mitochondrion</text>
+              <text x="222" y="176">Cell membrane</text>
+            </g>
+          </svg>
+          <p class="muted">
+            Nucleus — yana sarrafa ayyukan cell.
+            Mitochondria — suna samar da makamashi.
+            Cell membrane — yana kula da abin da ke shiga da fita.
+          </p>
+        </div>
+      `;
+    } else {
+      diagram.innerHTML = `
+        <h3>📊 Study Resources / Kayan Karatu</h3>
+        <p>Read each topic carefully, write notes,
+        and practise with examples.</p>
+        <p>Ka karanta kowane topic a hankali,
+        ka rubuta notes, sannan ka yi atisaye.</p>
+      `;
+    }
+  }
+}
+
 function toggleLang(){lang=lang==="en"?"ha":"en";document.getElementById("langBtn").textContent=lang==="en"?"Hausa / EN":"English / HA";document.getElementById("welcome").textContent=lang==="en"?"Learn together. Shine together.":"Ku yi karatu tare. Ku haskaka tare.";renderSubjects()}
 function stats(){try{return JSON.parse(localStorage.getItem("sciencepro-stats")||'{"points":0,"correct":0,"exams":0,"results":[]}')}catch{return {points:0,correct:0,exams:0,results:[]}}}
 function saveStats(s){localStorage.setItem("sciencepro-stats",JSON.stringify(s));refreshStats()}
@@ -185,7 +448,7 @@ function spSendGift() {
   const recipient = (document.getElementById("gift-recipient")?.value || "").trim();
   const gift = document.getElementById("gift-kind")?.value || "🎉 Well done";
   const status = document.getElementById("gift-status");
-  if (!recipient) { if(status) status.textContent = "Enter your classmate's username or email first."; return; }
+  if (!recipient) { if(status) status.textContent = "Enter your  classmate's username or email first."; return; }
   const items = spReadList("sciencepro_gifts_demo");
   items.unshift({recipient, gift, date: new Date().toLocaleString()});
   spWriteList("sciencepro_gifts_demo", items.slice(0, 30));
