@@ -351,6 +351,80 @@ function searchStudy(value) {
     </button>
   `).join("");
 }
+const biologySSS1Term1 = [
+  {
+    week: 1,
+    topic: "Introduction to Biology",
+    subtopic: "Meaning, scope and importance",
+    branches: "Branches; characteristics of life"
+  },
+  {
+    week: 2,
+    topic: "Classification of Living Things",
+    subtopic: "Kingdoms and classification",
+    branches: "Taxonomy; binomial naming"
+  },
+  {
+    week: 3,
+    topic: "The Cell",
+    subtopic: "Plant and animal cells",
+    branches: "Organelles; functions"
+  },
+  {
+    week: 4,
+    topic: "Nutrition in Living Things",
+    subtopic: "Autotrophic and heterotrophic nutrition",
+    branches: "Photosynthesis; feeding modes"
+  },
+  {
+    week: 5,
+    topic: "Respiration in Living Things",
+    subtopic: "Aerobic and anaerobic respiration",
+    branches: "Equations; energy"
+  },
+  {
+    week: 6,
+    topic: "Transport in Living Things",
+    subtopic: "Diffusion, osmosis and active transport",
+    branches: "Membranes; concentration gradients"
+  },
+  {
+    week: 7,
+    topic: "Excretion in Living Things",
+    subtopic: "Kidneys and their functions",
+    branches: "Nephron; urine formation"
+  },
+  {
+    week: 8,
+    topic: "Support and Movement",
+    subtopic: "Bones, muscles and joints",
+    branches: "Skeleton; antagonistic muscles"
+  },
+  {
+    week: 9,
+    topic: "Control and Coordination",
+    subtopic: "Nervous and endocrine systems",
+    branches: "Neurons; hormones; reflexes"
+  },
+  {
+    week: 10,
+    topic: "Reproduction in Living Things",
+    subtopic: "Sexual and asexual reproduction",
+    branches: "Gametes; fertilisation"
+  },
+  {
+    week: 11,
+    topic: "Genetics and Heredity",
+    subtopic: "Genes and inheritance",
+    branches: "DNA; chromosomes; variation"
+  },
+  {
+    week: 12,
+    topic: "Ecology",
+    subtopic: "Habitat, food chain and food web",
+    branches: "Ecosystems; energy flow"
+  }
+];
 function openSubject(i) {
   const s = subjects[i];
 
@@ -358,167 +432,69 @@ function openSubject(i) {
     lang === "en" ? s.en : s.ha;
 
   document.getElementById("lessonText").textContent =
-    (lang === "en" ? s.note : s.hnote) +
-    "\n\nEnglish / Hausa:\n" +
-    (lang === "en" ? s.hnote : s.note);
+    "SSS1 — First Term / Zango na Farko\nChoose a week to study. / Zaɓi mako domin karatu.";
 
   const topicsBox = document.getElementById("lessonTopics");
 
-  if (topicsBox) {
+  if (!topicsBox) return;
+
+  if (s.en === "Biology") {
     topicsBox.innerHTML = `
-      <h3>📚 Topics & Subtopics / Darussa</h3>
-      ${s.topics.map((topic, index) => `
-        <div class="card">
-          <h4>${index + 1}. ${topic.title}</h4>
-          <p>${topic.sub}</p>
-          <p><strong>Hausa:</strong> Ka karanta wannan topic a hankali.
-          Ka fahimci ma'anarsa, ka rubuta muhimman bayanai,
-          sannan ka yi atisaye.</p>
-        </div>
+      <h3>🧬 Biology — SSS1</h3>
+      <h4>First Term / Zango na Farko</h4>
+      <p>Choose a week / Zaɓi mako</p>
+
+      ${biologySSS1Term1.map(item => `
+        <button class="card"
+          style="display:block;width:100%;text-align:left;margin:10px 0;"
+          onclick="openBiologyWeek(${item.week})">
+          <strong>Week ${item.week} / Mako na ${item.week}</strong>
+          <p>${item.topic}</p>
+          <small>${item.subtopic}</small>
+        </button>
       `).join("")}
     `;
+  } else {
+    topicsBox.textContent =
+      "More weekly lessons are being prepared. Ana shirya darussan mako-mako.";
   }
 
   const diagram = document.getElementById("lessonDiagram");
-
   if (diagram) {
-    if (s.en === "Biology") {
-      diagram.innerHTML = `
-        <h3>🧬 Biology: Labeled Cell Diagrams</h3>
-        <p class="muted">
-          Plant cells have a cell wall and a large central vacuole.
-          Animal cells do not have a cell wall.
-        </p>
-        <p>Cell na tsiro yana da cell wall da babban vacuole.
-        Cell na dabba ba shi da cell wall.</p>
-
-        <div class="card">
-          <h4>🌱 Plant Cell / Cell na Tsiro</h4>
-          <svg viewBox="0 0 320 245" width="100%"
-               role="img" aria-label="Labeled plant cell diagram">
-            <rect x="20" y="20" width="180" height="190"
-              rx="18" fill="#d8f3dc" stroke="#287a45" stroke-width="5"/>
-            <rect x="30" y="30" width="160" height="170"
-              rx="14" fill="#f1fae9" stroke="#75a96b" stroke-width="2"/>
-            <ellipse cx="76" cy="78" rx="25" ry="20"
-              fill="#b9a2e8" stroke="#6545a0" stroke-width="2"/>
-            <circle cx="76" cy="78" r="7" fill="#6545a0"/>
-            <rect x="105" y="65" width="65" height="95"
-              rx="12" fill="#a8d8f0" stroke="#3483a5" stroke-width="2"/>
-            <ellipse cx="52" cy="145" rx="12" ry="7" fill="#5da96b"/>
-            <ellipse cx="166" cy="48" rx="12" ry="7" fill="#5da96b"/>
-            <ellipse cx="166" cy="180" rx="12" ry="7" fill="#5da96b"/>
-            <g stroke="#333" stroke-width="1.5" fill="none">
-              <path d="M76 58 L215 42"/>
-              <path d="M135 100 L215 85"/>
-              <path d="M52 145 L215 128"/>
-              <path d="M20 190 L215 175"/>
-            </g>
-            <g font-size="10" fill="currentColor">
-              <text x="218" y="43">Nucleus</text>
-              <text x="218" y="86">Vacuole</text>
-              <text x="218" y="129">Chloroplast</text>
-              <text x="218" y="176">Cell wall</text>
-            </g>
-          </svg>
-          <p class="muted">
-            Nucleus — cibiyar sarrafa cell.
-            Vacuole — wurin ajiya.
-            Chloroplast — yana taimakawa wajen photosynthesis.
-            Cell wall — yana ba cell ƙarfi da kariya.
-          </p>
-        </div>
-
-        <div class="card">
-          <h4>🐾 Animal Cell / Cell na Dabba</h4>
-          <svg viewBox="0 0 320 225" width="100%"
-               role="img" aria-label="Labeled animal cell diagram">
-            <ellipse cx="125" cy="110" rx="95" ry="80"
-              fill="#ffe7c2" stroke="#b56b36" stroke-width="3"/>
-            <ellipse cx="105" cy="100" rx="28" ry="24"
-              fill="#c6b3ee" stroke="#6e50a0" stroke-width="2"/>
-            <circle cx="105" cy="100" r="8" fill="#6e50a0"/>
-            <path d="M145 65 q20 -15 28 3 q-10 15 -28 -3"
-              fill="#f2a6a6" stroke="#b34f58" stroke-width="2"/>
-            <path d="M145 150 q20 -15 28 3 q-10 15 -28 -3"
-              fill="#f2a6a6" stroke="#b34f58" stroke-width="2"/>
-            <circle cx="70" cy="145" r="7" fill="#81bde0"/>
-            <circle cx="160" cy="110" r="6" fill="#81bde0"/>
-            <g stroke="#333" stroke-width="1.5" fill="none">
-              <path d="M105 76 L220 45"/>
-              <path d="M165 65 L220 88"/>
-              <path d="M160 150 L220 135"/>
-              <path d="M30 110 L220 175"/>
-            </g>
-            <g font-size="10" fill="currentColor">
-              <text x="222" y="46">Nucleus</text>
-              <text x="222" y="89">Mitochondrion</text>
-              <text x="222" y="136">Mitochondrion</text>
-              <text x="222" y="176">Cell membrane</text>
-            </g>
-          </svg>
-          <p class="muted">
-            Nucleus — yana sarrafa ayyukan cell.
-            Mitochondria — suna samar da makamashi.
-            Cell membrane — yana kula da abin da ke shiga da fita.
-          </p>
-        </div>
-     
-<div class="card">
-  <h4>❤️ Human Heart / Zuciyar Mutum</h4>
-  <svg viewBox="0 0 320 270" width="100%"
-       role="img" aria-label="Simplified labeled human heart diagram">
-    <path d="M150 65 C120 25 65 48 75 100
-      C80 140 125 180 160 220
-      C195 180 240 140 245 100
-      C255 48 200 25 170 65
-      L160 82 Z"
-      fill="#ef9a9a" stroke="#9f3030" stroke-width="3"/>
-    <path d="M157 83 C130 65 108 88 120 120
-      L157 174 L157 83"
-      fill="#719ce8" stroke="#355b9a" stroke-width="2"/>
-    <path d="M163 83 C190 65 212 88 200 120
-      L163 174 L163 83"
-      fill="#e96c6c" stroke="#9f3030" stroke-width="2"/>
-    <path d="M125 55 L125 25 M195 55 L195 25"
-      stroke="#d64b4b" stroke-width="12" stroke-linecap="round"/>
-    <path d="M110 78 L110 42"
-      stroke="#4386d9" stroke-width="10" stroke-linecap="round"/>
-    <g stroke="#333" stroke-width="1.5" fill="none">
-      <path d="M110 42 L35 35"/>
-      <path d="M125 25 L35 75"/>
-      <path d="M120 120 L35 125"/>
-      <path d="M200 120 L245 145"/>
-      <path d="M163 174 L245 205"/>
-    </g>
-    <g font-size="10" fill="currentColor">
-      <text x="3" y="30">Vena cava</text>
-      <text x="3" y="70">Aorta</text>
-      <text x="3" y="120">Right side</text>
-      <text x="247" y="145">Left side</text>
-      <text x="247" y="205">Apex</text>
-    </g>
-  </svg>
-  <p class="muted">
-    The heart pumps blood around the body.
-    Zuciya tana tura jini zuwa sassan jiki.
-    Aorta carries blood away from the heart.
-    Vena cava returns blood to the heart.
-  </p>
-</div>
- `;
-    } else {
-      diagram.innerHTML = `
-        <h3>📊 Study Resources / Kayan Karatu</h3>
-        <p>Read each topic carefully, write notes,
-        and practise with examples.</p>
-        <p>Ka karanta kowane topic a hankali,
-        ka rubuta notes, sannan ka yi atisaye.</p>
-      `;
-    }
+    diagram.innerHTML = "";
   }
 }
+function openBiologyWeek(weekNumber) {
+  const lesson = biologySSS1Term1.find(
+    item => item.week === weekNumber
+  );
 
+  if (!lesson) return;
+
+  document.getElementById("lessonTitle").textContent =
+    "Biology — Week " + lesson.week;
+
+  document.getElementById("lessonText").textContent =
+    lesson.topic + "\n\n" +
+    "Sub-topic: " + lesson.subtopic + "\n\n" +
+    "Lesson branches: " + lesson.branches;
+
+  document.getElementById("lessonTopics").innerHTML = `
+    <div class="card">
+      <h3>${lesson.topic}</h3>
+      <p><strong>Sub-topic:</strong> ${lesson.subtopic}</p>
+      <p><strong>Lesson branches:</strong> ${lesson.branches}</p>
+      <p>Full English and Hausa lesson notes will be added here.</p>
+      <p>Za a ƙara cikakken bayanin darasin da Hausa da Turanci a nan.</p>
+    </div>
+    <button class="primary" onclick="openSubject(${subjects.findIndex(s => s.en === "Biology")})">
+      ← Back to Weeks
+    </button>
+  `;
+
+  const diagram = document.getElementById("lessonDiagram");
+  if (diagram) diagram.innerHTML = "";
+}
 function toggleLang(){lang=lang==="en"?"ha":"en";document.getElementById("langBtn").textContent=lang==="en"?"Hausa / EN":"English / HA";document.getElementById("welcome").textContent=lang==="en"?"Learn together. Shine together.":"Ku yi karatu tare. Ku haskaka tare.";renderSubjects()}
 function stats(){try{return JSON.parse(localStorage.getItem("sciencepro-stats")||'{"points":0,"correct":0,"exams":0,"results":[]}')}catch{return {points:0,correct:0,exams:0,results:[]}}}
 function saveStats(s){localStorage.setItem("sciencepro-stats",JSON.stringify(s));refreshStats()}
