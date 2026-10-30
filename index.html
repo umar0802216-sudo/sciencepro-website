@@ -66,6 +66,16 @@
       Select a subject below to begin learning.
       Zaɓi darasin da kake son karantawa.
     </p>
+<div style="margin:15px 0;">
+  <input
+    type="search"
+    id="studySearch"
+    placeholder="🔍 Search subjects, weeks or topics..."
+    oninput="searchStudy(this.value)"
+    style="width:100%;padding:14px;border:1px solid #ccc;border-radius:10px;font-size:16px;"
+  >
+  <p class="muted">Nemi darasi, mako ko topic a nan.</p>
+</div>
     <div class="tiles" id="subjects"></div>
   </div>
 
@@ -290,7 +300,57 @@ let lang="en",qi=0,answered=false,quizScore=0;
 function go(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.id===id));window.scrollTo({top:0,behavior:"smooth"})}
 function renderSubjects(){document.getElementById("subjects").innerHTML=subjects.map((s,i)=>`<div class="tile" onclick="openSubject(${i})"><div class="ico">${s.icon}</div><strong>${lang==="en"?s.en:s.ha}</strong></div>`).join("")}
 
+function searchStudy(value) {
+  const box = document.getElementById("lessonTopics");
+  const q = value.trim().toLowerCase();
 
+  if (!box) return;
+
+  if (!q) {
+    box.innerHTML = "";
+    return;
+  }
+
+  const results = [];
+
+  subjects.forEach((subject, index) => {
+    const subjectName = (subject.en + " " + subject.ha).toLowerCase();
+
+    if (subjectName.includes(q)) {
+      results.push({
+        index,
+        title: subject.en + " / " + subject.ha,
+        detail: "Subject / Darasi"
+      });
+    }
+
+    (subject.topics || []).forEach(topic => {
+      const topicName = (topic.title + " " + topic.sub).toLowerCase();
+
+      if (topicName.includes(q)) {
+        results.push({
+          index,
+          title: topic.title,
+          detail: subject.en + " / " + subject.ha
+        });
+      }
+    });
+  });
+
+  if (!results.length) {
+    box.textContent = "No results found. Ba a sami wannan darasin ba.";
+    return;
+  }
+
+  box.innerHTML = results.map(item => `
+    <button class="card" style="display:block;width:100%;text-align:left;margin:8px 0;"
+      onclick="openSubject(${item.index})">
+      <strong>${item.title}</strong>
+      <p class="muted">${item.detail}</p>
+      <span>Open lesson →</span>
+    </button>
+  `).join("");
+}
 function openSubject(i) {
   const s = subjects[i];
 
